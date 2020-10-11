@@ -1,0 +1,18 @@
+{
+    "diagnostic.enable": true,
+    "diagnostic.checkCurrentLine": true,
+    "diagnostic.messageTarget":"echo",
+    "clangd.fallbackFlags": ["-Wall","-std=c99"],
+    "clangd.disableSnippetCompletion": true,
+    "snippets.snipmate.enable": true,
+    "snippets.ultisnips.enable": false,
+    "python.formatting.provider": [],
+    "python.jediEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": ["--ignore=W503,E203 --max-line-length 88"],
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.analysis.diagnosticEnabled": true
+
+}
+
