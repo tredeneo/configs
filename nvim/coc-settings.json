@@ -2,12 +2,14 @@
     "diagnostic.enable": true,
     "diagnostic.checkCurrentLine": true,
     "diagnostic.messageTarget":"echo",
+    "coc.preferences.formatOnSaveFiletypes":["python","dart"],
     "clangd.fallbackFlags": ["-Wall","-std=c99"],
     "clangd.disableSnippetCompletion": true,
-    "snippets.snipmate.enable": true,
-    "snippets.ultisnips.enable": false,
-    "python.formatting.provider": [],
-    "python.jediEnabled": false,
+    "snippets.snipmate.enable": false,
+    "snippets.ultisnips.enable": true,
+    "go.goplsPath": "/home/tredeneo/.config/go/bin/gopls",
+    "python.formatting.provider": "black",
+    "python.jediEnabled": true,
     "python.linting.flake8Enabled": true,
     "python.linting.flake8Args": ["--ignore=W503,E203 --max-line-length 88"],
     "python.linting.enabled": true,
@@ -15,4 +17,3 @@
     "python.analysis.diagnosticEnabled": true
 
 }
-
