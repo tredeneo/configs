@@ -40,35 +40,21 @@ highlight PmenuSel ctermbg=7
 "gerenciador de plugin
 call plug#begin()
 
-"Plug 'dart-lang/dart-vim-plugin'
 "#############################################################################
-"set completeopt=longest,menuone
-"set pumheight = 2
 
 "############################################################################# 
 "fechar automaticamente chaves,aspas ...
 Plug 'jiangmiao/auto-pairs' 
 
 "#############################################################################
-"c sharp
-"Plug 'OmniSharp/omnisharp-vim'
-"let g:OmniSharp_start_server = 1
 "############################################################################# 
 "verificação de sintaxe
-"python3: flake8 mypy
 Plug 'dense-analysis/ale'
 let g:ale_linters_explicit = 1
-let g:ale_linters = {}
-"let g:ale_python_flake8_options = '--ignore W503 E203 --max-line-length 88'
-"E203 whitespace before ‘:’
-"W503 line break occurred before a binary operator
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
-\	'python':['black','remove_trailing_lines','trim_whitespace'],
 \	'go': ['gofmt','remove_trailing_lines','trim_whitespace'],
 \	'c': ['clang-format','remove_trailing_lines','trim_whitespace'],
-\   'dart': ['dartfmt'],
-\   'java': ['clang-format','remove_trailing_lines','trim_whitespace']
 \}
 let g:ale_c_clangformat_options = '-style=webkit'
 
@@ -77,6 +63,8 @@ let g:ale_c_clangformat_options = '-style=webkit'
 "navegador de arquivos
 Plug 'scrooloose/nerdTree'
 nnoremap <C-n> :NERDTreeToggle<CR>
+let NERDTreeQuitOnOpen = 1
+let NERDTreeMinimalUI = 1
 
 
 "#############################################################################  
@@ -103,15 +91,17 @@ nmap <S-Tab> :w \|bn<CR>
 "auto-complete
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 let g:coc_global_extensions = [
-\   'coc-clangd','coc-go',"coc-python",'coc-snippets','coc-flutter']
+\   'coc-clangd',"coc-python",'coc-snippets','coc-flutter']
 let g:coc_snippet_next = '<Tab>'
 let g:coc_snippet_prev = '<s-Tab>'
+"atribui <c-espaço> para completar, alguns terminais da <NUL>
+"inoremap <silent><expr> <c-x> coc#refresh()
 Plug 'honza/vim-snippets'
 "Plug 'SirVer/ultisnips'
 
 
 " <TAB>: completion.
-inoremap <expr><Space> pumvisible() ? "\<Tab>" : "\<Space>"
+"inoremap <expr><C-x> pumvisible() ? "\<Tab>" : "\<C-x>"
 inoremap <expr><C-j>  pumvisible() ? "\<Down>" : "\<C-j>"
 inoremap <expr><C-k> pumvisible() ? "\<Up>" : "\<C-k>"
 
@@ -128,19 +118,19 @@ nnoremap <F7> :call <SID>termminal()<CR>
 function! s:compile_and_run()
     exec 'w'
     if &filetype == 'c'
-        exec "AsyncRun! clang -std=c99 % -o %<;time ./%<"
+        exec "AsyncRun! clang -std=c99 % -o %<;./%<"
     elseif &filetype == 'python'
-        exec "AsyncRun! time python3 %"
+        exec "AsyncRun! python3 %"
     elseif &filetype == 'go'
-        exec "AsyncRun! time go run %"
+        exec "AsyncRun!  go run %"
     elseif &filetype == 'cpp'
-       exec "AsyncRun! clang++ -std=c++11 % -o %<;time ./%<"
+       exec "AsyncRun! clang++ -std=c++17 % -o %<;./%<"
     elseif &filetype == 'java'
-       exec "AsyncRun! javac %;time java %<"
+       exec "AsyncRun! javac %;java %<"
     elseif &filetype == 'kotlin'
-        exec "AsyncRun! kotlin % -include-runtime -d %<.jar;time java -jar %<.jar"
+        exec "AsyncRun! kotlin % -include-runtime -d %<.jar;java -jar %<.jar"
     elseif &filetype == 'sh'
-       exec "AsyncRun! time bash %"
+       exec "AsyncRun! bash %"
     endif
 endfunction
 
