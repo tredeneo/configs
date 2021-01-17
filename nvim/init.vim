@@ -8,7 +8,6 @@ hi spellBad cterm=underline ctermbg=NONE
 hi SpellCap cterm=underline ctermbg=NONE
 "verifica o grupo de erro
 map <F10> :echo synIDattr(synID(line("."), col("."), 1), "name")
-
 "#############################################################################
 "cortar,copiar e colar
 vmap <C-c> "+y
@@ -92,12 +91,34 @@ nmap <S-Tab> :w \|bn<CR>
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 let g:coc_global_extensions = [
 \   'coc-clangd',"coc-python",'coc-snippets','coc-flutter']
+"coc-pyright nodejs 12+
 let g:coc_snippet_next = '<Tab>'
 let g:coc_snippet_prev = '<s-Tab>'
 "atribui <c-espaço> para completar, alguns terminais da <NUL>
 "inoremap <silent><expr> <c-x> coc#refresh()
 Plug 'honza/vim-snippets'
 "Plug 'SirVer/ultisnips'
+
+"flutter wrap/delete
+xmap <silent><leader>a  <Plug>(coc-codeaction-selected)
+nmap <silent><leader>a  <Plug>(coc-codeaction-selected)
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 
 " <TAB>: completion.
