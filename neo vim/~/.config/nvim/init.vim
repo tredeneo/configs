@@ -160,7 +160,7 @@ function! s:makefile()
     if &filetype == 'c'
         exec "AsyncRun! make -C %:p:h;time make rodar -C %:p:h"
     elseif &filetype == 'dart'
-        :CocCommand flutter.run -d chrome
+        :CocCommand flutter.run -d --web-port 8001
     endif
 endfunction
 

@@ -11,23 +11,21 @@
 
 (use-package lsp-mode
   :hook
-  (dart-mode . lsp-deferred)
+  (dart-mode . lsp)
   :init
   )
-  (setq lsp-clients-clangd-args 
-                              '(
-                                "-query-driver=\"-std=c89\""
+  (setq lsp-clients-clangd-args '(
                                 "--clang-tidy"
                                 "--suggest-missing-includes"
-                                "--compile_args_from=lsp"
+                                "--compile_args_from=filesystem"
+                                "--compile-commands-dir=/home/tredeneo/.config/"
                                 "--completion-style=detailed"
                                 "--fallback-style=microsoft"
                                 "--header-insertion=iwyu"))
-(after! lsp-clangd (set-lsp-priority! 'clangd 2))
-(add-hook 'c-mode-hook (lambda () (setq flycheck-clang-language-standard "c89")))
-;(setq flycheck-clang-language-standard "c89")
 (setq lsp-ui-sideline-show-diagnostics 't)
-(setq lsp-dart-sdk-dir "~/snap/flutter/common/flutter/bin/cache/dart-sdk")
+;(setq lsp-dart-sdk-dir "/usr/lib/dart/bin")
+(setq lsp-dart-flutter-sdk-dir "~/snap/flutter/common/flutter")
+
 (global-set-key (kbd "C-x q") 'kill-this-buffer)
 (global-set-key (kbd "C-x l") 'next-buffer )
 (global-set-key (kbd "C-x h") 'revious-buffer )
@@ -42,7 +40,7 @@
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
-;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+;;       doom-variable-pitch-fon (font-spec :family "sans" :size 13))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
