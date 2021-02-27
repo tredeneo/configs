@@ -67,7 +67,12 @@ paq 'kyazdani42/nvim-tree.lua'
 --plugins config
 require'lspconfig'.clangd.setup{on_attach=require'completion'.on_attach}
 require("flutter-tools").setup{}
---require'lspconfig'.dartls.setup{on_attach=require'completion'.on_attach}
+require'lspconfig'.dartls.setup{on_attach=require'completion'.on_attach,
+init_options={closingLabels=true},
+    --filetypes={"dart"},
+    --cmd={"dart" ,"~/flutter/bin","--lsp"},
+
+}
 require'lspconfig'.rust_analyzer.setup{on_attach=require'completion'.on_attach}
 require'nvim-treesitter.configs'.setup{
     highlight={
@@ -75,6 +80,3 @@ require'nvim-treesitter.configs'.setup{
     }
 }
 vim.cmd 'let g:rainbow_active = 1'
-
-
-
