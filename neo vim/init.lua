@@ -26,20 +26,35 @@ vim.cmd 'highlight Pmenu ctermbg=8'
 vim.cmd 'highlight PmenuSel ctermbg=7'
 
 --cancelar carecteres selecionados
-vim.api.nvim_set_keymap('n','<ESC>',':nohlsearch<CR> ',{noremap=true})
+vim.api.nvim_set_keymap('n',
+                        '<ESC>',
+                        ':nohlsearch<CR> ',
+                        {noremap=true})
 
 
 
 --mover linhas
 vim.cmd 'vnoremap <A-k> :m \'<-2<CR>gv=gv'
 vim.cmd 'vnoremap <A-j> :m \'>+1<CR>gv=gv'
-vim.api.nvim_set_keymap('n','<A-k>',':m .-2<CR>==',{noremap=true})
-vim.api.nvim_set_keymap('n','<A-j>',':m .+1<CR>==',{noremap=true})
+vim.api.nvim_set_keymap('n',
+                        '<A-k>',
+                        ':m .-2<CR>==',
+                        {noremap=true})
+vim.api.nvim_set_keymap('n',
+                        '<A-j>',
+                        ':m .+1<CR>==',
+                        {noremap=true})
 
 
-
-vim.api.nvim_set_keymap('i', '<C-j>', 'pumvisible() ? "\\<C-n>" : "\\<C-j>"', {expr = true})
-vim.api.nvim_set_keymap('i', '<C-k>', 'pumvisible() ? "\\<C-p>" : "\\<C-k>"', {expr = true})
+---menu de completar negação tipo vim
+vim.api.nvim_set_keymap('i',
+                        '<C-j>', 
+                        'pumvisible() ? "\\<C-n>" : "\\<C-j>"', 
+                        {expr = true})
+vim.api.nvim_set_keymap('i',
+                        '<C-k>',
+                        'pumvisible() ? "\\<C-p>" : "\\<C-k>"', 
+                        {expr = true})
 
 --snippets precisa do python3
 --paq 'SirVer/ultisnips'
@@ -56,11 +71,14 @@ paq 'nvim-lua/plenary.nvim'
 
 -- finder
 paq 'nvim-telescope/telescope.nvim'
-vim.api.nvim_set_keymap('n','<Space><Space>','<cmd>lua require(\'telescope.builtin\').find_files()<cr>',{noremap=true})
+vim.api.nvim_set_keymap('n',
+                        '<Space><Space>',
+                        '<cmd>lua require(\'telescope.builtin\').find_files()<cr>',
+                        {noremap=true})
 
 vim.cmd 'set ts=4 sw=2 et'
 vim.cmd 'let g:indent_guides_start_level=1'
-vim.cmd 'let g:indent_guides_guide_size=2'
+vim.cmd 'let g:indent_guides_guide_size=4'
 vim.cmd 'let g:indent_guides_enable_on_vim_startup = 1'
 paq 'nvim-treesitter/nvim-treesitter'
 
@@ -71,8 +89,15 @@ paq 'kyazdani42/nvim-tree.lua'
 
 
 --statusline
---paq 'glepnir/galaxyline.nvim'
---require('galaxyline').section.left
+paq 'hoob3rt/lualine.nvim'
+require('lualine').status{
+        options = {
+          theme = 'gruvbox',
+    }
+}
+vim.o.showtabline = 2
+vim.o.tabline = vim.o.statusline
+vim.o.statusline = ' '
 
 -- fechar paretes,chaves
 paq 'windwp/nvim-autopairs'
@@ -80,40 +105,39 @@ require('nvim-autopairs').setup()
 
 
 
+
 --completar 
 --Set completeopt to have a better completion experience
 --vim.cmd 'set completeopt=longest,menuone,noinsert,noselect'
 vim.o.completeopt = 'menuone,longest'--,noselect'
-vim.api.nvim_set_keymap('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>',{noremap=false})
+vim.api.nvim_set_keymap('n', 
+                        '<space>a', 
+                        '<cmd>lua vim.lsp.buf.code_action()<CR>',
+                        {noremap=false})
 
---LSP-----------------------------------------------------------------
-
+---LSP-----------------------------------------------------------------
+paq 'nvim-lua/lsp_extensions.nvim'
 paq 'neovim/nvim-lspconfig'
 paq 'nvim-lua/completion-nvim'
 -- c
-require'lspconfig'.clangd.setup{on_attach=require'completion'.on_attach}
+require'lspconfig'.clangd.setup{
+    on_attach=require'completion'.on_attach
+}
 
 ----- flutter
 paq 'akinsho/flutter-tools.nvim'
---[[
-require("flutter-tools").setup {
-  flutter_outline={enable = true},
+require("flutter-tools").setup{
+flutter_outline={enable = true},
   lsp = {one_attach=require'completion'.on_attach}
 }
---]]
-require'lspconfig'.dartls.setup(
-{
-  on_attach=require'completion'.on_attach;
-  init_options = {
-    closingLabels = true;
-  }
-}
-)
-
 -------rust
-require'lspconfig'.rust_analyzer.setup{on_attach=require'completion'.on_attach}
+require'lspconfig'.rust_analyzer.setup{
+    on_attach=require'completion'.on_attach
+}
+require'lsp_extensions'.inlay_hints()
 
-require'nvim-treesitter.configs'.setup{
+
+require('nvim-treesitter.configs').setup{
     highlight={
         enable=true
     }
