@@ -25,16 +25,15 @@
 
        :ui
        ;;deft              ; notational velocity for Emacs
-       doom              ; what makes DOOM look the way it does
-       doom-dashboard    ; a nifty splash screen for Emacs
-       doom-quit         ; DOOM quit-message prompts when you quit Emacs
-       ;;(emoji +unicode)  ; 🙂
-       ;;fill-column       ; a `fill-column' indicator
+       doom             
+       doom-dashboard    
+       doom-quit         
+       ;;fill-column       
        hl-todo           ; highlight TODO/FIXME/NOTE/DEPRECATED/HACK/REVIEW
        ;;hydra
        indent-guides     ; highlighted indent columns
        ligatures         ; ligatures and symbols to make your code pretty again
-       ;;minimap           ; show a map of the code on the side
+       ;;minimap         
        (modeline +light)          ; snazzy, Atom-inspired modeline, plus API
        ;;nav-flash         ; blink cursor line after big motions
        neotree           ; a project drawer, like NERDTree for vim
@@ -50,16 +49,16 @@
        ;;zen               ; distraction-free coding or writing
 
        :editor
-       (evil +everywhere); come to the dark side, we have cookies
+       (evil +everywhere)
        file-templates    ; auto-snippets for empty files
        fold              ; (nigh) universal code folding
-       (format +onsave)  ; automated prettiness
+       (format +onsave)  
        ;;god               ; run Emacs commands without modifier keys
        ;;multiple-cursors  ; editing in many places at once
        ;;objed             ; text object editing for the innocent
        ;;parinfer          ; turn lisp into python, sort of
        ;;rotate-text       ; cycle region at point between text candidates
-       snippets          ; my elves. They type so I don't have to
+       snippets          
        ;;word-wrap         ; soft wrapping with language-aware indent
 
        :emacs
@@ -71,9 +70,9 @@
 
 
        :checkers
-       syntax              ; tasing you for every semicolon you forget
-       ;;spell             ; tasing you for misspelling mispelling
-       ;;grammar           ; tasing grammar mistake every you make
+       syntax             
+       ;;spell            
+       ;;grammar           
 
        :tools
        ;;ansible
@@ -87,11 +86,7 @@
        lsp
        ;;magit             ; a git porcelain for Emacs
        ;;make              ; run make tasks from Emacs
-       ;;pass              ; password manager for nerds
-       ;;pdf               ; pdf enhancements
-       ;;prodigy           ; FIXME managing external services & code builders
-       ;;taskrunner        ; taskrunner for all your projects
-       ;;terraform         ; infrastructure as code
+       ;;pdf               ; pdf enhancement
 
        :os
        (:if IS-MAC macos)  ; improve compatibility with macOS
@@ -99,15 +94,12 @@
 
        :lang
        (cc +lsp) 
-       ;;data              ; config/data formats
        (dart +lsp +flutter)
        ;;json              ; At least it ain't XML
        ;;latex             ; writing papers in Emacs has never been so fun
-       ;;lua               ; one-based indices? one-based indices
        markdown
        (python +lsp) 
        (rust +lsp)
-       sh
        ;;yaml
 
        (default +bindings +smartparens))
