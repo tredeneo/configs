@@ -19,23 +19,14 @@
         lsp-rust-analyzer-server-display-inlay-hints t)
   (setq lsp-ui-doc-enable t
         lsp-ui-imenu-auto-refresh t ))
-;;erro na linah lateral
-;(setq lsp-ui-sideline-show-diagnostics 't)
-;(setq lsp-ui-sideline-show-hover t)
-;atualizar menu
-;(setq lsp-ui-imenu-auto-refresh t)
+
 ;;diretorio do flutter
-;(setq lsp-dart-sdk-dir "/usr/lib/dart/bin")
 (setq lsp-dart-flutter-sdk-dir "~/snap/flutter/common/flutter")
 
 ;;erros na margem a esquerda
 (add-hook 'flycheck-mode-hook
               #'(lambda () (flycheck-set-indication-mode 'left-margin)))
 
-;;config rust
-;;user rls sobre rust-analyzer
-;(after! rustic
- ; (setq rustic-lsp-server 'rls))
 (global-set-key (kbd "C-x q") 'kill-this-buffer)
 (global-set-key (kbd "C-x l") 'next-buffer )
 (global-set-key (kbd "C-x h") 'revious-buffer )
