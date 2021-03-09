@@ -1,4 +1,3 @@
---cursor:normal-inserir-visual-comando=linha verical,substituir=linha horizontal
 --[[
 ---Using meta-accessors
 vim.o.{option}: global options
@@ -16,10 +15,10 @@ vim.wo.{option}: window-local options
 -- vim.v.{name}: predefined Vim variables
 -- vim.env.{name}: environment variables
 -- 
-vim.cmd 'set guicursor=n-i-v-c:ver100-blinkon1,r:hor100-blinkon0'
+
+
+--cursor:normal-inserir-visual-comando=linha verical,substituir=linha horizontal
 vim.o.guicursor='n-i-v-c:ver100-blinkon1,r:hor100-blinkon0'
-
-
 --plugins
 vim.cmd 'packadd paq-nvim'
 local paq = require('paq-nvim').paq
@@ -40,8 +39,6 @@ vim.o.ignorecase = true
 --sla a diferença desses 2
 --set shortmess+=A
 
---mudar blocos coloridos de erro para caractere sublinhado de erro
-
 --cor da janela flutuante
 vim.cmd 'highlight Pmenu ctermbg=8'
 vim.cmd 'highlight PmenuSel ctermbg=7'
@@ -50,7 +47,7 @@ vim.cmd 'highlight PmenuSel ctermbg=7'
 vim.api.nvim_set_keymap('n',
                         '<ESC>',
                         ':nohlsearch<CR> ',
-                        {noremap=true})
+                        {noremap=true,silent=true})
 
 
 
@@ -151,12 +148,35 @@ require('nvim-autopairs').setup()
 
 --completar 
 --Set completeopt to have a better completion experience
+vim.cmd "setlocal omnifunc=v:lua.vim.lsp.omnifunc"
 vim.o.completeopt = 'menuone,noselect,noinsert'
 vim.api.nvim_set_keymap('n', 
                         '<space>a', 
                         '<cmd>lua vim.lsp.buf.code_action()<CR>',
                         {noremap=false})
 
+vim.api.nvim_set_keymap('i',
+			'<c-space>',
+			'<cmd>lua vim.lsp.buf.completion()<CR>',
+			{noremap=true,silent=true})
+
+vim.api.nvim_set_keymap('n',
+			'gD',
+			'<cmd>lua vim.lsp.buf.definition()<CR>',
+			{silent=true})
+
+vim.api.nvim_set_keymap('n',
+			'gd',
+			'<cmd>lua vim.lsp.buf.declaration()<CR>',
+			{silent=true})
+
+vim.api.nvim_set_keymap('n',
+                        "?",
+                        "<cmd>lua vim.lsp.buf.hover()<cr>",
+                        { 
+                          noremap = true, 
+                          silent = true
+                        })
 ---LSP-----------------------------------------------------------------
 paq 'nvim-lua/lsp_extensions.nvim'
 paq 'neovim/nvim-lspconfig'
@@ -189,17 +209,3 @@ require('nvim-treesitter.configs').setup{
     --   enable=true
     -- }
 }
-
---code actions
-
--- paq 'RishabhRD/popfix'
--- paq 'RishabhRD/nvim-lsputils'
--- vim.lsp.handlers['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
--- vim.lsp.handlers['textDocument/references'] = require'lsputil.locations'.references_handler
--- vim.lsp.handlers['textDocument/definition'] = require'lsputil.locations'.definition_handler
--- vim.lsp.handlers['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
--- vim.lsp.handlers['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
--- vim.lsp.handlers['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
--- vim.lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
--- vim.lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
--- 
