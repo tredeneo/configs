@@ -1,4 +1,4 @@
-"######## ".config/nvim"
+"::###### ".config/nvim"
 "cursor:normal-inserir-visual-comando=linha verical,substituir=linha horizontal
 set guicursor=n-i-v-c:ver100-blinkon1,r:hor100-blinkon0
 
@@ -15,26 +15,33 @@ vmap <C-x> "+x
 vmap <C-v> "+gP
 "#############################################################################
 "cancelar selecionados
-nnoremap <ESC> :nohlsearch<CR> 
-
+nnoremap <silent> <ESC> :nohlsearch<CR> 
+set cmdheight=2
 imap <C-l> <Right>
 
 "#############################################################################
 "mover linhas com para cima para baixo
 nnoremap <A-j> :m .+1<CR>==
 nnoremap <A-k> :m .-2<CR>==
-vnoremap <A-k> :m '<-2<CR>gv=gv
 vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
 
 "#############################################################################
 "esconder mensagens de atenção
 set shortmess+=A
+set incsearch
+set ignorecase
+set confirm
+set wildmenu
 
 "#############################################################################
 "cor da janela flutuante
 highlight Pmenu ctermbg=8
 highlight PmenuSel ctermbg=7
 
+set completeopt=menuone,noinsert,noselect,longest
+let g:ale_completion_enabled = 1
+set omnifunc=ale#completion#OmniFunc
 "#############################################################################
 "gerenciador de plugin
 call plug#begin()
@@ -45,15 +52,20 @@ call plug#begin()
 "fechar automaticamente chaves,aspas ...
 Plug 'jiangmiao/auto-pairs' 
 
-"#############################################################################
 "############################################################################# 
 "verificação de sintaxe
 Plug 'dense-analysis/ale'
-let g:ale_linters_explicit = 1
+let g:ale_linters_explicit = 0
 let g:ale_fix_on_save = 1
+let g:ale_python_flake8_options = '--ignore W503 E203 --max-line-length 88'
+"E203 whitespace before ‘:’
+"W503 line break occurred before a binary operator
+
 let g:ale_fixers = {
 \	'go': ['gofmt','remove_trailing_lines','trim_whitespace'],
 \	'c': ['clang-format','remove_trailing_lines','trim_whitespace'],
+\   'python':['black','remove_trailing_lines','trim_whitespace'],
+\   'dart': ['dartfmt']
 \}
 let g:ale_c_clangformat_options = '-style=webkit'
 
@@ -65,54 +77,23 @@ nnoremap <C-n> :NERDTreeToggle<CR>
 let NERDTreeQuitOnOpen = 1
 let NERDTreeMinimalUI = 1
 
-
 "#############################################################################  
 "parenteses coloridos
 Plug 'luochen1990/rainbow'
 let g:rainbow_active = 1
 
 "#############################################################################
-
-"#############################################################################
 "colocar barra de status
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 let g:airline_theme='dark'
-let g:airline#extensions#coc#enabled = 1
 let g:airline#extensions#ale#enabled = 1
 
 "mostra as guias abertas
 let g:airline#extensions#tabline#enabled = 1
 nmap <S-Tab> :w \|bn<CR>
 
-
 "#############################################################################
-"auto-complete
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-let g:coc_global_extensions = [
-\   'coc-clangd',"coc-python",'coc-snippets','coc-flutter']
-"coc-pyright nodejs 12+
-let g:coc_snippet_next = '<Tab>'
-let g:coc_snippet_prev = '<s-Tab>'
-"atribui <c-espaço> para completar, alguns terminais da <NUL>
-"inoremap <silent><expr> <c-x> coc#refresh()
-Plug 'honza/vim-snippets'
-"Plug 'SirVer/ultisnips'
-
-"flutter wrap/delete
-xmap <silent><leader>a  <Plug>(coc-codeaction-selected)
-nmap <silent><leader>a  <Plug>(coc-codeaction-selected)
-
-" Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" GoTo code navigation.
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
-
 " <TAB>: completion.
 "inoremap <expr><C-x> pumvisible() ? "\<Tab>" : "\<C-x>"
 inoremap <expr><C-j>  pumvisible() ? "\<Down>" : "\<C-j>"
@@ -138,12 +119,6 @@ function! s:compile_and_run()
         exec "AsyncRun!  go run %"
     elseif &filetype == 'cpp'
        exec "AsyncRun! clang++ -std=c++17 % -o %<;./%<"
-    elseif &filetype == 'java'
-       exec "AsyncRun! javac %;java %<"
-    elseif &filetype == 'kotlin'
-        exec "AsyncRun! kotlin % -include-runtime -d %<.jar;java -jar %<.jar"
-    elseif &filetype == 'sh'
-       exec "AsyncRun! bash %"
     endif
 endfunction
 
@@ -151,8 +126,6 @@ function! s:makefile()
     exec 'w'
     if &filetype == 'c'
         exec "AsyncRun! make -C %:p:h;time make rodar -C %:p:h"
-    elseif &filetype == 'dart'
-        :CocCommand flutter.run -d --web-port 8001
     endif
 endfunction
 
@@ -178,8 +151,6 @@ let g:indent_guides_guide_size=4
 let g:indent_guides_enable_on_vim_startup = 1
 
 "#############################################################################
-"colocar numero nas linhas
-Plug 'jeffkreeftmeijer/vim-numbertoggle'
 "colocar numeros de linhas relativo
 set number relativenumber
 

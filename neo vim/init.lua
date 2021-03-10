@@ -40,8 +40,8 @@ vim.o.ignorecase = true
 --set shortmess+=A
 
 --cor da janela flutuante
-vim.cmd 'highlight Pmenu ctermbg=8'
-vim.cmd 'highlight PmenuSel ctermbg=7'
+vim.cmd 'highlight Pmenu ctermbg=0 ctermfg=15'
+vim.cmd 'highlight PmenuSel ctermbg=15'
 
 --cancelar carecteres selecionados
 vim.api.nvim_set_keymap('n',
@@ -209,3 +209,4 @@ require('nvim-treesitter.configs').setup{
     --   enable=true
     -- }
 }
+-- paq 'TimUntersberger/neogit'
