@@ -52,6 +52,10 @@ paq 'windwp/nvim-autopairs'
 ---flutter
 paq 'akinsho/flutter-tools.nvim'
 
+---dart
+--realce de sintaxe dart
+paq 'dart-lang/dart-vim-plugin'
+
 -- paq 'TimUntersberger/neogit'
 
 paq 'nvim-treesitter/nvim-treesitter'
