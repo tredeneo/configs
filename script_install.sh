@@ -5,13 +5,11 @@ sudo apt upgrade -y
 
 
 sudo apt update
-sudo apt install -y clang-format git make kate calibre anki flatpak snapd
+sudo apt install -y clang clang-format git make kate calibre anki flatpak snapd
 
 #desenvolvimento c/c++
 sudo apt install -y clang clang-tidy clang-tools
 
-#flutter linux desktop
-sudo apt-get install -y clang cmake ninja-build pkg-config libgtk-3-dev libblkid-dev liblzma-dev
 
 sudo flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 #set -U fish_user_paths /snap/bin/ $fish_user_paths 
