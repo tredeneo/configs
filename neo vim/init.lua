@@ -28,7 +28,7 @@ vim.wo.{option}: window-local options
 vim.o.guicursor='n-i-v-c:ver100-blinkon1,r:hor100-blinkon0'
 --plugins
 
-
+vim.cmd "let g:dart_format_on_save = 1"
 ---numeros relativos
 vim.wo.number = true
 vim.wo.relativenumber = true -- same as vim.api.nvim_win_set_option(0, 'number', true)
