@@ -10,11 +10,9 @@ paq 'luochen1990/rainbow'
 ---mostrar indendação
 paq 'nathanaelkane/vim-indent-guides'
 -- paq 'glepnir/indent-guides.nvim' --alternativa em lua
--- require('indent_guides').setup()
 
 ---
 paq 'blackCauldron7/surround.nvim'
-require'surround'.setup{}
 
 ---comentarios
 paq 'b3nj5m1n/kommentary'
@@ -23,6 +21,7 @@ paq 'b3nj5m1n/kommentary'
 paq 'nvim-telescope/telescope.nvim'
 
 
+--- dependecias de outros q n uso diretamente
 paq 'nvim-lua/popup.nvim'
 paq 'nvim-lua/plenary.nvim'
 
@@ -35,27 +34,25 @@ paq 'kyazdani42/nvim-tree.lua'
 
 ---statusline
 paq 'hoob3rt/lualine.nvim'
-require('lualine').status{
-        options = {
-          theme = 'gruvbox',
-    }
-}
 
-paq 'nvim-lua/lsp_extensions.nvim'
+
 paq 'neovim/nvim-lspconfig'
 paq 'nvim-lua/completion-nvim'
 
 ---fechar paretes,chaves
 paq 'windwp/nvim-autopairs'
 
-
 ---flutter
 paq 'akinsho/flutter-tools.nvim'
 
----dart
---realce de sintaxe dart
+---dart hilght syntax
 paq 'dart-lang/dart-vim-plugin'
 
 -- paq 'TimUntersberger/neogit'
-
 paq 'nvim-treesitter/nvim-treesitter'
+
+---melhora no uso do lsp
+paq 'glepnir/lspsaga.nvim'
+
+---sinalização da ação de codigo
+paq 'kosayoda/nvim-lightbulb'

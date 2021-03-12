@@ -45,3 +45,17 @@ require('kommentary.config').configure_language("default", {
     use_consistent_indentation= true,
     ignore_whitespace=true,
 })
+
+---melhora no lsp
+require 'lspsaga'.init_lsp_saga()
+
+
+---
+require'surround'.setup{}
+
+---barra de status
+require('lualine').status{
+        options = {
+          theme = 'gruvbox',
+    }
+}
