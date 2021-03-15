@@ -5,7 +5,6 @@ require'lspconfig'.clangd.setup{
 
 ----- flutter
 require("flutter-tools").setup{
-  flutter_lookup_cmd="echo $HOME/snap/flutter/common/flutter/bin", --n funciona
   flutter_outline={enable = true},
   lsp = {on_attach=require'completion'.on_attach}
 }
@@ -47,7 +46,13 @@ require('kommentary.config').configure_language("default", {
 })
 
 ---melhora no lsp
-require 'lspsaga'.init_lsp_saga()
+require 'lspsaga'.init_lsp_saga({
+  error_sign = "E",
+  warn_sign = "W",
+  hint_sign = "H",
+  infor_sign = "I",
+  code_action_icon = "?",
+})
 
 
 ---

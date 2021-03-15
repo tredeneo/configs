@@ -55,4 +55,4 @@ paq 'nvim-treesitter/nvim-treesitter'
 paq 'glepnir/lspsaga.nvim'
 
 ---sinalização da ação de codigo
-paq 'kosayoda/nvim-lightbulb'
+-- paq 'kosayoda/nvim-lightbulb'

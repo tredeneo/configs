@@ -15,6 +15,8 @@ sudo flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/
 sudo apt install libsquashfuse0 squashfuse fuse
 sudo chmod 755 /  #   ---liberar snap:w
 sudo snap install nvim --classic
+git clone https://github.com/savq/paq-nvim.git \
+        $HOME/.local/share/nvim/site/pack/paqs/opt/paq-nvim
 git clone https://github.com/tredeneo/configs.git -c ~/
 mkdir -p ~/.config/nvim
 cp ~/configs/neo\ vim/~/.config/nvim/* ~/.config/nvim/
