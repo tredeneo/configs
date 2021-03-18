@@ -3,6 +3,7 @@
 require("plugins")
 require("map")
 require("requires")
+require("execut")
 
 
 --[[
@@ -12,8 +13,6 @@ vim.bo.{option}: buffer-local options
 vim.wo.{option}: window-local options
 --]]
 --
-
-
 -- ---Using meta-accessors
 -- vim.g.{name}: global variables
 -- vim.b.{name}: buffer variables
@@ -45,12 +44,8 @@ vim.o.ignorecase = true
 --set shortmess+=A
 
 ---cor da janela flutuante
-vim.cmd 'highlight Pmenu ctermbg=0 ctermfg=15'
+vim.cmd 'highlight Pmenu ctermbg=1 ctermfg=15'
 vim.cmd 'highlight PmenuSel ctermbg=15'
-
----snippets precisa do python3
---paq 'SirVer/ultisnips'
-vim.g.completion_enable_snippet = 'UltiSnips'
 
 ---parenteses coloridos
 vim.cmd 'let g:rainbow_active = 1'
@@ -62,12 +57,11 @@ vim.cmd 'let g:indent_guides_guide_size=4'
 vim.cmd 'let g:indent_guides_enable_on_vim_startup = 1'
 
 vim.o.showtabline = 2
--- vim.o.tabline = vim.o.statusline
--- vim.o.statusline = ' '
 
 ---lsp
 vim.cmd "setlocal omnifunc=v:lua.vim.lsp.omnifunc"
 
----ativar sinalização de ação de codigo
---parece n funcionar no windows
-vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
+---n pedir pra salvar ao trocar de buffer
+vim.cmd "set hidden"
+vim.cmd "let g:nvim_tree_auto_close = 1" ---fechar quando for ultimo
+vim.cmd "let g:nvim_tree_quit_on_open = 1"---fechar ao abrir arquivo

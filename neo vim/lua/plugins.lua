@@ -51,8 +51,16 @@ paq 'dart-lang/dart-vim-plugin'
 -- paq 'TimUntersberger/neogit'
 paq 'nvim-treesitter/nvim-treesitter'
 
----melhora no uso do lsp
+---melhora no uso do lsp(fonte)
 paq 'glepnir/lspsaga.nvim'
 
----sinalização da ação de codigo
--- paq 'kosayoda/nvim-lightbulb'
+---tabs superiores
+paq 'akinsho/nvim-bufferline.lua'
+
+---snippids
+paq 'norcalli/snippets.nvim' --motor
+paq 'honza/vim-snippets'
+
+
+---configurar completar
+paq 'hrsh7th/nvim-compe'

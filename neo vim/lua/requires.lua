@@ -1,6 +1,12 @@
 --- c
 require'lspconfig'.clangd.setup{
-    on_attach=require'completion'.on_attach
+    on_attach=require'completion'.on_attach,
+    cmd = { "clangd",
+            "--background-index",
+            "--clang-tidy",
+            "--suggest-missing-includes",
+            "--completion-style=detailed",
+            "--header-insertion=iwyu"}
 }
 
 ----- flutter
@@ -28,13 +34,6 @@ require('nvim-treesitter.configs').setup{
 --- fechar paretes,chaves
 require('nvim-autopairs').setup()
 
----statusline
-require('lualine').status{
-        options = {
-          theme = 'gruvbox',
-    }
-}
-
 ---comentarios
 --require('kommentary.config').use_extended_mappings()
 require('kommentary.config')
@@ -51,16 +50,43 @@ require 'lspsaga'.init_lsp_saga({
   warn_sign = "W",
   hint_sign = "H",
   infor_sign = "I",
-  code_action_icon = "?",
 })
 
 
 ---
 require'surround'.setup{}
 
----barra de status
+--barra de status
 require('lualine').status{
         options = {
           theme = 'gruvbox',
     }
 }
+
+
+require'compe'.setup{
+  preselect = "disable"; 
+  source = {
+    cal =true;
+    path = true;
+    buffer = true;
+    nvim_lsp = true;
+    nvim_lua = true;
+    snippets_nvim =true;
+    omni = true;
+    tag = true;
+   },
+}
+
+---tabs superiores
+require'bufferline'.setup{
+  options = {
+    diagnostics = "nvim_lsp"
+  }
+}
+
+---snippets
+require'snippets'.use_suggested_mappings()
+
+--icones (nerd fonts)
+require'nvim-web-devicons'.setup()
