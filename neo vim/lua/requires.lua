@@ -1,6 +1,8 @@
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 --- c
 require'lspconfig'.clangd.setup{
-    on_attach=require'completion'.on_attach,
+  capabilities = capabilities,
     cmd = { "clangd",
             "--background-index",
             "--clang-tidy",
@@ -11,24 +13,24 @@ require'lspconfig'.clangd.setup{
 
 ----- flutter
 require("flutter-tools").setup{
-  flutter_outline={enable = true},
-  lsp = {on_attach=require'completion'.on_attach}
+  -- experimental = {lsp_derive_paths = true},
+  widget_guides = {
+    enable = true,
+  },
+  lsp = {
+    capabilities = capabilities,
+  }
 }
 -------rust
 require'lspconfig'.rust_analyzer.setup{
-    on_attach=require'completion'.on_attach
+  capabilities = capabilities,
 }
--- require'lsp_extensions'.inlay_hints()
 
 ---syntax highlight
 require('nvim-treesitter.configs').setup{
-    -- indent={enable=true};
     highlight={
         enable=true
-    },
-    -- rainbow={
-    --   enable=true
-    -- }
+    }
 }
 
 --- fechar paretes,chaves
@@ -57,7 +59,7 @@ require 'lspsaga'.init_lsp_saga({
 require'surround'.setup{}
 
 --barra de status
-require('lualine').status{
+require('lualine').setup{
         options = {
           theme = 'gruvbox',
     }
@@ -73,7 +75,6 @@ require'compe'.setup{
     nvim_lsp = true;
     nvim_lua = true;
     snippets_nvim =true;
-    omni = true;
     tag = true;
    },
 }
@@ -90,3 +91,28 @@ require'snippets'.use_suggested_mappings()
 
 --icones (nerd fonts)
 require'nvim-web-devicons'.setup()
+
+
+---selectionar opções de completar
+local t = function(str)
+    return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
+_G.tab_complete = function()
+    if vim.fn.pumvisible() == 1 then
+        return t "<Down>"
+    else
+        return vim.fn['compe#complete']()
+
+    end
+end
+_G.s_tab_complete = function()
+    if vim.fn.pumvisible() == 1 then
+        return t "<Up>"
+    else
+        return t "<S-Tab>"
+    end
+end
+
+vim.api.nvim_set_keymap("i", "<C-j>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("i", "<C-k>", "v:lua.s_tab_complete()", {expr = true})

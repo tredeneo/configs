@@ -2,7 +2,7 @@
 --Set completeopt to have a better completion experience
 local opts = { noremap=true, silent=true }
 vim.o.completeopt = 'menuone,noselect,noinsert'
-vim.api.nvim_set_keymap('i','<c-space>','<cmd>lua vim.lsp.buf.completion()<CR>',opts)
+vim.api.nvim_set_keymap('i','<C-space>',[[lua vim.fn['compe#complete']()]],{expr=true,silent=true,noremap=true})
 vim.api.nvim_set_keymap('n','<space>td','new <cmd>lua vim.lsp.buf.type_definition()<CR>',opts)
 vim.api.nvim_set_keymap('n', '<space>i', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
 vim.api.nvim_set_keymap('n', "<space>f", "<cmd>lua vim.lsp.buf.formatting()<cr>", opts)
@@ -28,15 +28,11 @@ vim.api.nvim_set_keymap('n', '<space>pl', [[<cmd>lua print(vim.inspect(vim.lsp.b
 ---cancelar carecteres selecionados
 vim.api.nvim_set_keymap('n',  '<ESC>', ':nohlsearch<CR> ',opts)
 
----menu de completar negação tipo vim
-vim.api.nvim_set_keymap('i','<C-j>',  'pumvisible() ? "\\<Down>" : "\\<C-j>"', {expr = true})
-vim.api.nvim_set_keymap('i','<C-k>','pumvisible() ? "\\<Up>" : "\\<C-k>"',  {expr = true})
-
 ---mover linhas
 vim.cmd 'vnoremap <A-k> :m \'<-2<CR>gv=gv'
 vim.cmd 'vnoremap <A-j> :m \'>+1<CR>gv=gv'
-vim.api.nvim_set_keymap('n', '<A-k>',':m .-2<CR>==',{noremap=true})
-vim.api.nvim_set_keymap('n','<A-j>', ':m .+1<CR>==',{noremap=true})
+vim.api.nvim_set_keymap('n', '<A-k>',':m .-2<CR>==',opts)
+vim.api.nvim_set_keymap('n','<A-j>', ':m .+1<CR>==',opts)
 
 
 ---explorador de arquivos
@@ -56,5 +52,4 @@ vim.api.nvim_set_keymap('n','<C-w>w',':bd<CR>',{silent=true})
 
 vim.api.nvim_set_keymap('n','<F5>',[[<cmd> lua executar_arquivo()<CR>]],{noremap=true})
 vim.api.nvim_set_keymap('n','<F6>',[[<cmd> lua compilar_projeto()<CR>]],{noremap=true})
-vim.api.nvim_set_keymap('n','<F7>',[[<cmd> lua executar_projeto()<CR>]],{noremap=true})
 vim.api.nvim_set_keymap('t','<C-w>t',[[<cmd> lua require('lspsaga.floaterm').close_float_terminal()<cr>]],{noremap=false})

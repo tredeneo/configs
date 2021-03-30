@@ -5,11 +5,9 @@ paq {'savq/paq-nvim', opt=true}
 
 ---parenteses coloridos
 paq 'luochen1990/rainbow'
--- paq 'p00f/nvim-ts-rainbow' --alternativa em lua
 
 ---mostrar indendação
 paq 'nathanaelkane/vim-indent-guides'
--- paq 'glepnir/indent-guides.nvim' --alternativa em lua
 
 ---
 paq 'blackCauldron7/surround.nvim'
@@ -37,7 +35,6 @@ paq 'hoob3rt/lualine.nvim'
 
 
 paq 'neovim/nvim-lspconfig'
-paq 'nvim-lua/completion-nvim'
 
 ---fechar paretes,chaves
 paq 'windwp/nvim-autopairs'
@@ -57,10 +54,12 @@ paq 'glepnir/lspsaga.nvim'
 ---tabs superiores
 paq 'akinsho/nvim-bufferline.lua'
 
----snippids
+---snippits
 paq 'norcalli/snippets.nvim' --motor
-paq 'honza/vim-snippets'
 
 
 ---configurar completar
 paq 'hrsh7th/nvim-compe'
+
+---mostrar coinscidencias do cursor
+-- paq 'yamatsum/nvim-cursorline'

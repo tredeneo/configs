@@ -59,7 +59,7 @@ vim.cmd 'let g:indent_guides_enable_on_vim_startup = 1'
 vim.o.showtabline = 2
 
 ---lsp
-vim.cmd "setlocal omnifunc=v:lua.vim.lsp.omnifunc"
+-- vim.cmd "setlocal omnifunc=v:lua.vim.lsp.omnifunc"
 
 ---n pedir pra salvar ao trocar de buffer
 vim.cmd "set hidden"
