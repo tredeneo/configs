@@ -24,6 +24,18 @@ paq 'nvim-lua/popup.nvim'
 paq 'nvim-lua/plenary.nvim'
 
 
+---movimentação suave
+paq 'karb94/neoscroll.nvim'
+
+---reload e restart
+paq 'famiu/nvim-reload'
+
+---lista de variaveis e funções --requisitos{universal-ctags}
+paq 'liuchengxu/vista.vim'
+
+---janela com erros
+paq 'folke/lsp-trouble.nvim'
+
 --- icones
 paq 'kyazdani42/nvim-web-devicons' 
 

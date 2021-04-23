@@ -33,6 +33,12 @@ require('nvim-treesitter.configs').setup{
     }
 }
 
+---movimentação suave
+require('neoscroll').setup()
+
+---janela de erros
+require("trouble").setup{}
+
 --- fechar paretes,chaves
 require('nvim-autopairs').setup()
 

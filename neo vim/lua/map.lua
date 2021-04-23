@@ -28,6 +28,10 @@ vim.api.nvim_set_keymap('n', '<space>pl', [[<cmd>lua print(vim.inspect(vim.lsp.b
 ---cancelar carecteres selecionados
 vim.api.nvim_set_keymap('n',  '<ESC>', ':nohlsearch<CR> ',opts)
 
+---copiar colocar, fora do editor
+vim.api.nvim_set_keymap("v","<C-c>","\"+y",{silent=true})
+vim.api.nvim_set_keymap("v","<C-x>","\"+x",{silent=true})
+vim.api.nvim_set_keymap("v","<C-v>","\"+gP",{silent=true})
 ---mover linhas
 vim.cmd 'vnoremap <A-k> :m \'<-2<CR>gv=gv'
 vim.cmd 'vnoremap <A-j> :m \'>+1<CR>gv=gv'
