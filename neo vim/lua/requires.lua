@@ -13,7 +13,6 @@ require'lspconfig'.clangd.setup{
 
 ----- flutter
 require("flutter-tools").setup{
-  -- experimental = {lsp_derive_paths = true},
   widget_guides = {
     enable = true,
   },
@@ -21,10 +20,11 @@ require("flutter-tools").setup{
     capabilities = capabilities,
   }
 }
+require("telescope").load_extension("flutter")
 -------rust
-require'lspconfig'.rust_analyzer.setup{
-  capabilities = capabilities,
-}
+require('rust-tools').setup({
+  -- server = {capabilities = capabilities},
+})
 
 ---syntax highlight
 require('nvim-treesitter.configs').setup{
@@ -32,9 +32,14 @@ require('nvim-treesitter.configs').setup{
         enable=true
     }
 }
+---teclas possiveis
+require("which-key").setup{}
+
 
 ---movimentação suave
-require('neoscroll').setup()
+require('neoscroll').setup({
+mappings = {'<C-u>', '<C-d>', '<C-y>', '<C-e>', 'zt', 'zz', 'zb'}
+})
 
 ---janela de erros
 require("trouble").setup{}

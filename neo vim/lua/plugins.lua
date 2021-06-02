@@ -23,6 +23,9 @@ paq 'nvim-telescope/telescope.nvim'
 paq 'nvim-lua/popup.nvim'
 paq 'nvim-lua/plenary.nvim'
 
+---mostrar combinações de taclas possiveis
+paq 'folke/which-key.nvim'
+
 
 ---movimentação suave
 paq 'karb94/neoscroll.nvim'
@@ -30,8 +33,9 @@ paq 'karb94/neoscroll.nvim'
 ---reload e restart
 paq 'famiu/nvim-reload'
 
----lista de variaveis e funções --requisitos{universal-ctags}
+---lista de variaveis e funções
 paq 'liuchengxu/vista.vim'
+-- simrat39/symbols-outline.nvim
 
 ---janela com erros
 paq 'folke/lsp-trouble.nvim'
@@ -56,6 +60,9 @@ paq 'akinsho/flutter-tools.nvim'
 
 ---dart hilght syntax
 paq 'dart-lang/dart-vim-plugin'
+
+---rust
+paq 'simrat39/rust-tools.nvim'
 
 -- paq 'TimUntersberger/neogit'
 paq 'nvim-treesitter/nvim-treesitter'
