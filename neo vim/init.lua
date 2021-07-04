@@ -65,3 +65,4 @@ vim.o.showtabline = 2
 vim.cmd "set hidden"
 vim.cmd "let g:nvim_tree_auto_close = 1" ---fechar quando for ultimo
 vim.cmd "let g:nvim_tree_quit_on_open = 1"---fechar ao abrir arquivo
+vim.cmd "let g:dashboard_default_executive ='telescope'"---definir telescope como mecanismo na tela inicial

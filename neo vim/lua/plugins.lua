@@ -81,4 +81,7 @@ paq 'norcalli/snippets.nvim' --motor
 paq 'hrsh7th/nvim-compe'
 
 ---mostrar coinscidencias do cursor
--- paq 'yamatsum/nvim-cursorline'
+paq 'xiyaowong/nvim-cursorword'
+
+--tela inicial
+paq 'glepnir/dashboard-nvim'

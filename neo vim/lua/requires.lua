@@ -26,6 +26,15 @@ require('rust-tools').setup({
   -- server = {capabilities = capabilities},
 })
 
+---python
+require'lspconfig'.pyls.setup{
+  configurationSources = { "flake8", "black"},
+  plugins = {
+        flake8 = {enabled = true},
+        -- black = { enabled = true},
+  },
+}
+
 ---syntax highlight
 require('nvim-treesitter.configs').setup{
     highlight={
