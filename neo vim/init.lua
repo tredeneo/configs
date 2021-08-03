@@ -46,23 +46,32 @@ vim.o.ignorecase = true
 ---cor da janela flutuante
 vim.cmd 'highlight Pmenu ctermbg=1 ctermfg=15'
 vim.cmd 'highlight PmenuSel ctermbg=15'
-
+vim.cmd "highlight visual_char_1 ctermfg=012"
+vim.cmd "highlight visual_char_2 ctermfg=160 ctermbg=242"
 ---parenteses coloridos
 vim.cmd 'let g:rainbow_active = 1'
 
 ---tabs configs
 vim.cmd 'set ts=4 sw=2 et'
 vim.cmd 'let g:indent_guides_start_level=1'
-vim.cmd 'let g:indent_guides_guide_size=4'
+vim.cmd 'let g:indent_guides_guide_size=2'
 vim.cmd 'let g:indent_guides_enable_on_vim_startup = 1'
 
 vim.o.showtabline = 2
 
----lsp
--- vim.cmd "setlocal omnifunc=v:lua.vim.lsp.omnifunc"
-
 ---n pedir pra salvar ao trocar de buffer
 vim.cmd "set hidden"
-vim.cmd "let g:nvim_tree_auto_close = 1" ---fechar quando for ultimo
-vim.cmd "let g:nvim_tree_quit_on_open = 1"---fechar ao abrir arquivo
-vim.cmd "let g:dashboard_default_executive ='telescope'"---definir telescope como mecanismo na tela inicial
+---fechar quando for ultimo
+vim.cmd "let g:nvim_tree_auto_close = 1" 
+---fechar ao abrir arquivo
+vim.cmd "let g:nvim_tree_quit_on_open = 1"
+---definir telescope como mecanismo na tela inicial
+vim.cmd "let g:dashboard_default_executive ='telescope'"
+--- plugin de indentação
+vim.g.indent_blankline_char_list ={'|', '¦', '┆', '┊'} 
+vim.g.indent_blankline_char_highlight_list = {"visual_char_1", "visual_char_2"}
+vim.g.indent_blankline_space_char_highlight_list = {"VisualNC","Visual"}
+vim.g.indent_blankline_show_trailing_blankline_indent = false
+---excluir indentação na pagina inicial
+vim.g.indent_blankline_filetype_exclude = {'dashboard'}
+vim.g.indent_blankline_show_current_context = true

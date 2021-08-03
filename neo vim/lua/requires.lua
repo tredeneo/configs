@@ -41,6 +41,7 @@ require('nvim-treesitter.configs').setup{
         enable=true
     }
 }
+require("twilight").setup{}
 ---teclas possiveis
 require("which-key").setup{}
 

@@ -7,7 +7,7 @@ paq {'savq/paq-nvim', opt=true}
 paq 'luochen1990/rainbow'
 
 ---mostrar indendação
-paq 'nathanaelkane/vim-indent-guides'
+paq 'lukas-reineke/indent-blankline.nvim'
 
 ---
 paq 'blackCauldron7/surround.nvim'
@@ -18,7 +18,8 @@ paq 'b3nj5m1n/kommentary'
 --- finder
 paq 'nvim-telescope/telescope.nvim'
 
-
+---escurecer bloco não atual, n funcionou
+paq 'folke/twilight.nvim'
 --- dependecias de outros q n uso diretamente
 paq 'nvim-lua/popup.nvim'
 paq 'nvim-lua/plenary.nvim'
@@ -26,12 +27,11 @@ paq 'nvim-lua/plenary.nvim'
 ---mostrar combinações de taclas possiveis
 paq 'folke/which-key.nvim'
 
-
 ---movimentação suave
 paq 'karb94/neoscroll.nvim'
 
----reload e restart
-paq 'famiu/nvim-reload'
+---reload e restart, plugin orfão
+-- paq 'famiu/nvim-reload'
 
 ---lista de variaveis e funções
 paq 'liuchengxu/vista.vim'
@@ -49,7 +49,6 @@ paq 'kyazdani42/nvim-tree.lua'
 ---statusline
 paq 'hoob3rt/lualine.nvim'
 
-
 paq 'neovim/nvim-lspconfig'
 
 ---fechar paretes,chaves
@@ -58,7 +57,7 @@ paq 'windwp/nvim-autopairs'
 ---flutter
 paq 'akinsho/flutter-tools.nvim'
 
----dart hilght syntax
+---dart highlight syntax
 paq 'dart-lang/dart-vim-plugin'
 
 ---rust
@@ -73,9 +72,8 @@ paq 'glepnir/lspsaga.nvim'
 ---tabs superiores
 paq 'akinsho/nvim-bufferline.lua'
 
----snippits
-paq 'norcalli/snippets.nvim' --motor
-
+---motor de snippets 
+paq 'norcalli/snippets.nvim'
 
 ---configurar completar
 paq 'hrsh7th/nvim-compe'
