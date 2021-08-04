@@ -54,7 +54,7 @@ vim.cmd 'let g:rainbow_active = 1'
 ---tabs configs
 vim.cmd 'set ts=4 sw=2 et'
 vim.cmd 'let g:indent_guides_start_level=1'
-vim.cmd 'let g:indent_guides_guide_size=2'
+vim.cmd 'let g:indent_guides_guide_size=4'
 vim.cmd 'let g:indent_guides_enable_on_vim_startup = 1'
 
 vim.o.showtabline = 2
@@ -75,3 +75,10 @@ vim.g.indent_blankline_show_trailing_blankline_indent = false
 ---excluir indentação na pagina inicial
 vim.g.indent_blankline_filetype_exclude = {'dashboard'}
 vim.g.indent_blankline_show_current_context = true
+---formatador
+vim.api.nvim_exec([[
+augroup FormatAutogroup
+  autocmd!
+  autocmd BufWritePost *.c,*.py,*.rs FormatWrite
+augroup END
+]], true)

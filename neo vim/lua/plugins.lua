@@ -18,6 +18,9 @@ paq 'b3nj5m1n/kommentary'
 --- finder
 paq 'nvim-telescope/telescope.nvim'
 
+---formatador de arquivos
+paq 'mhartington/formatter.nvim'
+
 ---escurecer bloco não atual, n funcionou
 paq 'folke/twilight.nvim'
 --- dependecias de outros q n uso diretamente

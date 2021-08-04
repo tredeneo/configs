@@ -3,7 +3,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 --- c
 require'lspconfig'.clangd.setup{
   capabilities = capabilities,
-    cmd = { "clangd",
+        cmd = { "clangd",
             "--background-index",
             "--clang-tidy",
             "--suggest-missing-includes",
@@ -27,13 +27,50 @@ require('rust-tools').setup({
 })
 
 ---python
-require'lspconfig'.pyls.setup{
-  configurationSources = { "flake8", "black"},
-  plugins = {
-        flake8 = {enabled = true},
-        -- black = { enabled = true},
+require'lspconfig'.pylsp.setup{
+  enable = true,
+  settings = {
+    pylsp = {
+      configurationSources = {"flake8"},
+      plugins = {
+        flake8 = {
+          enabled = true,
+          ignore = {"E203","W503"},
+          maxLineLength = 88,
+        },
+      }
+    }
+  }
+} 
+require("formatter").setup {
+  filetype = {
+    python = {
+      function()
+        return {exe = "black", args = {"-"}, stdin = true}
+      end,
+    },
+    rust = {
+      function()
+        return {
+          exe = "rustfmt",
+          args = {"--edition=2018", "--emit=stdout"},
+          stdin = true,
+        }
+      end,
+    },
+    c = {
+      function()
+        return {
+          exe = "clang-format",
+          args = {'--assume-filename=', vim.api.nvim_buf_get_name(0),'--style=microsoft'},
+          stdin = true,
+          cwd = vim.fn.expand('%:p:h')
+        }
+      end
+    },
   },
 }
+
 
 ---syntax highlight
 require('nvim-treesitter.configs').setup{
@@ -41,6 +78,8 @@ require('nvim-treesitter.configs').setup{
         enable=true
     }
 }
+
+---não ta funcionando
 require("twilight").setup{}
 ---teclas possiveis
 require("which-key").setup{}
@@ -76,8 +115,8 @@ require 'lspsaga'.init_lsp_saga({
 })
 
 
----
-require'surround'.setup{}
+---adicionar/remove/substituir caractes em volta
+require"surround".setup{}
 
 --barra de status
 require('lualine').setup{
@@ -114,7 +153,7 @@ require'snippets'.use_suggested_mappings()
 require'nvim-web-devicons'.setup()
 
 
----selectionar opções de completar
+---selecionar opções de completar
 local t = function(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
