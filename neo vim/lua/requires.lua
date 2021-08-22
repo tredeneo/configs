@@ -1,8 +1,42 @@
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
+require("dapui").setup({
+sidebar = {
+    open_on_start = true,
+    -- You can change the order of elements in the sidebar
+    elements = {
+      -- Provide as ID strings or tables with "id" and "size" keys
+      {
+        id = "scopes",
+        size = 0.33, -- Can be float or integer > 1
+      },
+      { id = "breakpoints", size = 0.33 },
+      { id = "watches", size = 0.33 },
+    },
+    -- width = 40,
+    position = "left", -- Can be "left" or "right"
+  },
+})
+local dap = require('dap')
+dap.adapters.lldb = {
+  type = 'executable',
+  command = '/usr/bin/lldb-vscode', -- adjust as needed
+  name = "lldb"
+}
+dap.configurations.rust= {
+  {
+    name = "Launch",
+    type = "lldb",
+    request = "launch",
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/target/debug', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+    args = {},
+    runInTerminal = false,
+  },
+}
 --- c
 require'lspconfig'.clangd.setup{
-  capabilities = capabilities,
         cmd = { "clangd",
             "--background-index",
             "--clang-tidy",
@@ -17,13 +51,12 @@ require("flutter-tools").setup{
     enable = true,
   },
   lsp = {
-    capabilities = capabilities,
   }
 }
 require("telescope").load_extension("flutter")
+require('telescope').load_extension('neoclip')
 -------rust
 require('rust-tools').setup({
-  -- server = {capabilities = capabilities},
 })
 
 ---python
@@ -76,7 +109,10 @@ require("formatter").setup {
 require('nvim-treesitter.configs').setup{
     highlight={
         enable=true
-    }
+    },
+  rainbow = {
+    enable = true,
+  }
 }
 
 ---não ta funcionando
@@ -87,11 +123,15 @@ require("which-key").setup{}
 
 ---movimentação suave
 require('neoscroll').setup({
-mappings = {'<C-u>', '<C-d>', '<C-y>', '<C-e>', 'zt', 'zz', 'zb'}
+-- mappings = {'<C-u>', '<C-d>', '<C-y>', '<C-e>', 'zt', 'zz', 'zb'}
+mappings = {'<C-y>', '<C-e>', 'zt', 'zz', 'zb'}
 })
 
 ---janela de erros
 require("trouble").setup{}
+
+---
+require('neoclip').setup()
 
 --- fechar paretes,chaves
 require('nvim-autopairs').setup()
@@ -134,8 +174,10 @@ require'compe'.setup{
     buffer = true;
     nvim_lsp = true;
     nvim_lua = true;
-    snippets_nvim =true;
+	snippets_nvim = true;
     tag = true;
+    treesitter = true;
+    vsnip = true;
    },
 }
 
@@ -146,8 +188,6 @@ require'bufferline'.setup{
   }
 }
 
----snippets
-require'snippets'.use_suggested_mappings()
 
 --icones (nerd fonts)
 require'nvim-web-devicons'.setup()
@@ -161,6 +201,8 @@ end
 _G.tab_complete = function()
     if vim.fn.pumvisible() == 1 then
         return t "<Down>"
+    --elseif vim.fn['vsnip#available'](1) == 1 then
+    --    return t "<Plug>(vsnip-expand-or-jump)"
     else
         return vim.fn['compe#complete']()
 
@@ -169,6 +211,8 @@ end
 _G.s_tab_complete = function()
     if vim.fn.pumvisible() == 1 then
         return t "<Up>"
+  --  elseif vim.fn['vsnip#jumpable'](-1) == 1 then
+--        return t "<Plug>(vsnip-jump-prev)"
     else
         return t "<S-Tab>"
     end

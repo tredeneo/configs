@@ -49,7 +49,7 @@ vim.cmd 'highlight PmenuSel ctermbg=15'
 vim.cmd "highlight visual_char_1 ctermfg=012"
 vim.cmd "highlight visual_char_2 ctermfg=160 ctermbg=242"
 ---parenteses coloridos
-vim.cmd 'let g:rainbow_active = 1'
+-- vim.cmd 'let g:rainbow_active = 1'
 
 ---tabs configs
 vim.cmd 'set ts=4 sw=2 et'

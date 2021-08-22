@@ -2,16 +2,21 @@
 
 --Set completeopt to have a better completion experience
 local opts = { noremap=true, silent=true }
-local wk = require("which-key")
+  local wk = require("which-key")
 vim.o.completeopt = 'menuone,noselect,noinsert'
-vim.api.nvim_set_keymap('i','<C-space>',[[lua vim.fn['compe#complete']()]],{expr=true,silent=true,noremap=true})
-
+-- vim.api.nvim_set_keymap('i','<CR>',[[lua vim.fn['compe#confirm']()]],{expr=true,silent=true,noremap=true}) ]]
+vim.cmd "inoremap <silent><expr> <C-Space> compe#complete()"
+vim.cmd "inoremap <silent><expr> <CR>      compe#confirm('<CR>')"
 ---usando saga
 vim.api.nvim_set_keymap('n',"?",[[<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>]],opts)
 vim.api.nvim_set_keymap('v', '<space>ca',[[<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>]],opts)
 vim.api.nvim_set_keymap('n','<C-f>',[[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>]],opts)
 vim.api.nvim_set_keymap('n','<C-b>',[[<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>]],opts)
 
+vim.api.nvim_set_keymap('n','<F9>',[[<cmd>lua require'dap'.toggle_breakpoint()<CR>]],opts)
+vim.api.nvim_set_keymap('n','<F10>',[[<cmd>lua require'dap'.step_into()<CR>]],opts)
+vim.api.nvim_set_keymap('n','<F11>',[[<cmd>lua require'dap'.step_over()<CR>]],opts)
+vim.api.nvim_set_keymap('n','<F12>',[[<cmd>lua require'dap'.continue()<CR>]],opts)
 wk.register({
   ["<space>"]={
     name = "lsp",
@@ -40,13 +45,14 @@ wk.register({
 	name = "telescope",
     f = {
       name = "procurador",
-      f = {[[<cmd>lua require('telescope.builtin').find_files()<cr>]],"arquivos"},
-      g = {[[<cmd>lua require('telescope.builtin').live_grep()<cr>]]},
-      b = {[[<cmd>lua require('telescope.builtin').buffers()<cr>]]},
-      h = {[[<cmd>lua require('telescope.builtin').help_tags()<cr>]]},
-      p = {[[<cmd>lua require('telescope.builtin').file_browser()<cr>]]},
-      d = {[[<cmd> lua require('telescope').extensions.flutter.commands()<cr>]],"flutter"}
-
+      a = {[[<cmd>lua require('telescope.builtin').find_files()<cr>]],"arquivos  (diretorio atual)"},---dep=bat,ripgrep
+      g = {[[<cmd>lua require('telescope.builtin').live_grep()<cr>]],"procurar string no diretorio atual"},
+      b = {[[<cmd>lua require('telescope.builtin').buffers()<cr>]],"buffers"},
+      h = {[[<cmd>lua require('telescope.builtin').help_tags()<cr>]],"help_tags"},
+      p = {[[<cmd>lua require('telescope.builtin').file_browser()<cr>]],"arquivos e pastas  (diretorio atual)"},
+      f = {[[<cmd>lua require('telescope').extensions.flutter.commands()<cr>]],"flutter"},
+      t = {[[<cmd>lua require('telescope.builtin').treesitter()<cr>]],"treesitter"},
+      c = {[[<cmd>lua require('telescope').extensions.neoclip.commands()<cr>]],"neoclip"},
     }
   }
 })

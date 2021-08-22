@@ -4,13 +4,21 @@ local paq = require('paq-nvim').paq
 paq {'savq/paq-nvim', opt=true}   
 
 ---parenteses coloridos
-paq 'luochen1990/rainbow'
+paq 'p00f/nvim-ts-rainbow'
 
 ---mostrar indendação
 paq 'lukas-reineke/indent-blankline.nvim'
 
+
 ---
-paq 'blackCauldron7/surround.nvim'
+paq 'blacflutterkCauldron7/surround.nvim'
+
+---snippets(formato json)
+paq 'rafamadriz/friendly-snippets'
+---motor de snippets
+paq 'hrsh7th/vim-vsnip'
+
+paq 'AckslD/nvim-neoclip.lua'
 
 ---comentarios
 paq 'b3nj5m1n/kommentary'
@@ -20,6 +28,10 @@ paq 'nvim-telescope/telescope.nvim'
 
 ---formatador de arquivos
 paq 'mhartington/formatter.nvim'
+
+---debug
+paq 'mfussenegger/nvim-dap'
+paq 'rcarriga/nvim-dap-ui'
 
 ---escurecer bloco não atual, n funcionou
 paq 'folke/twilight.nvim'
@@ -60,9 +72,6 @@ paq 'windwp/nvim-autopairs'
 ---flutter
 paq 'akinsho/flutter-tools.nvim'
 
----dart highlight syntax
-paq 'dart-lang/dart-vim-plugin'
-
 ---rust
 paq 'simrat39/rust-tools.nvim'
 
@@ -74,9 +83,6 @@ paq 'glepnir/lspsaga.nvim'
 
 ---tabs superiores
 paq 'akinsho/nvim-bufferline.lua'
-
----motor de snippets 
-paq 'norcalli/snippets.nvim'
 
 ---configurar completar
 paq 'hrsh7th/nvim-compe'
