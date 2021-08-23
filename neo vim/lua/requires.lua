@@ -130,8 +130,11 @@ mappings = {'<C-y>', '<C-e>', 'zt', 'zz', 'zb'}
 ---janela de erros
 require("trouble").setup{}
 
----
+---listagem do copiar
 require('neoclip').setup()
+
+--tema
+require('github-theme').setup()
 
 --- fechar paretes,chaves
 require('nvim-autopairs').setup()
@@ -161,7 +164,7 @@ require"surround".setup{}
 --barra de status
 require('lualine').setup{
         options = {
-          theme = 'gruvbox',
+          theme = 'github',
     }
 }
 

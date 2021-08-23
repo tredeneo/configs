@@ -44,8 +44,8 @@ vim.o.ignorecase = true
 --set shortmess+=A
 
 ---cor da janela flutuante
-vim.cmd 'highlight Pmenu ctermbg=1 ctermfg=15'
-vim.cmd 'highlight PmenuSel ctermbg=15'
+-- vim.cmd 'highlight Pmenu ctermbg=1 ctermfg=15'
+-- vim.cmd 'highlight PmenuSel ctermbg=15'
 vim.cmd "highlight visual_char_1 ctermfg=012"
 vim.cmd "highlight visual_char_2 ctermfg=160 ctermbg=242"
 ---parenteses coloridos

@@ -9,6 +9,8 @@ paq 'p00f/nvim-ts-rainbow'
 ---mostrar indendação
 paq 'lukas-reineke/indent-blankline.nvim'
 
+---tema
+paq 'projekt0n/github-nvim-theme'
 
 ---
 paq 'blacflutterkCauldron7/surround.nvim'
