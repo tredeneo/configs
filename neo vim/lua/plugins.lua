@@ -1,96 +1,66 @@
+local fn = vim.fn
+
+local install_path = fn.stdpath("data") .. "/site/pack/paqs/start/paq-nvim"
+
+if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({ "git", "clone", "--depth=1", "https://github.com/savq/paq-nvim.git", install_path })
+end
+
 ---gerenciador
-vim.cmd 'packadd paq-nvim'
-local paq = require('paq-nvim').paq
-paq {'savq/paq-nvim', opt=true}   
+-- vim.cmd 'packadd paq-nvim'
+require("paq")({
 
----parenteses coloridos
-paq 'p00f/nvim-ts-rainbow'
+    { "savq/paq-nvim", opt = true }, ---parenteses coloridos
+    "p00f/nvim-ts-rainbow", ---mostrar indendação
+    "lukas-reineke/indent-blankline.nvim", ---tema
+    "projekt0n/github-nvim-theme", ---simbolos lsp pro tema
+    "folke/lsp-colors.nvim", ---
+    "blacflutterkCauldron7/surround.nvim", -- ; "scalameta/nvim-metals"
+    "AckslD/nvim-neoclip.lua",
+    ---comentarios
+    "b3nj5m1n/kommentary",
+    --- finder
+    "nvim-telescope/telescope.nvim",
+    ---formatador de arquivos
+    "rcarriga/nvim-notify", -- notificações
+    "mhartington/formatter.nvim",
+    ---debug
 
----mostrar indendação
-paq 'lukas-reineke/indent-blankline.nvim'
-
----tema
-paq 'projekt0n/github-nvim-theme'
-
----
-paq 'blacflutterkCauldron7/surround.nvim'
-
----snippets(formato json)
-paq 'rafamadriz/friendly-snippets'
----motor de snippets
-paq 'hrsh7th/vim-vsnip'
-
-paq 'AckslD/nvim-neoclip.lua'
-
----comentarios
-paq 'b3nj5m1n/kommentary'
-
---- finder
-paq 'nvim-telescope/telescope.nvim'
-
----formatador de arquivos
-paq 'mhartington/formatter.nvim'
-
----debug
-paq 'mfussenegger/nvim-dap'
-paq 'rcarriga/nvim-dap-ui'
-
----escurecer bloco não atual, n funcionou
-paq 'folke/twilight.nvim'
---- dependecias de outros q n uso diretamente
-paq 'nvim-lua/popup.nvim'
-paq 'nvim-lua/plenary.nvim'
-
----mostrar combinações de taclas possiveis
-paq 'folke/which-key.nvim'
-
----movimentação suave
-paq 'karb94/neoscroll.nvim'
-
----reload e restart, plugin orfão
--- paq 'famiu/nvim-reload'
-
----lista de variaveis e funções
-paq 'liuchengxu/vista.vim'
--- simrat39/symbols-outline.nvim
-
----janela com erros
-paq 'folke/lsp-trouble.nvim'
-
---- icones
-paq 'kyazdani42/nvim-web-devicons' 
-
------explorador de arquivos
-paq 'kyazdani42/nvim-tree.lua'
-
----statusline
-paq 'hoob3rt/lualine.nvim'
-
-paq 'neovim/nvim-lspconfig'
-
----fechar paretes,chaves
-paq 'windwp/nvim-autopairs'
-
----flutter
-paq 'akinsho/flutter-tools.nvim'
-
----rust
-paq 'simrat39/rust-tools.nvim'
-
--- paq 'TimUntersberger/neogit'
-paq 'nvim-treesitter/nvim-treesitter'
-
----melhora no uso do lsp(fonte)
-paq 'glepnir/lspsaga.nvim'
-
----tabs superiores
-paq 'akinsho/nvim-bufferline.lua'
-
----configurar completar
-paq 'hrsh7th/nvim-compe'
-
----mostrar coinscidencias do cursor
-paq 'xiyaowong/nvim-cursorword'
-
---tela inicial
-paq 'glepnir/dashboard-nvim'
+    "mfussenegger/nvim-dap",
+    "theHamsta/nvim-dap-virtual-text", --- mostrar valores no codigo
+    "rcarriga/nvim-dap-ui", ---escurecer bloco não atual, n funcionou
+    "folke/twilight.nvim", --- dependecias de outros q n uso diretamente
+    "nvim-lua/popup.nvim",
+    "nvim-lua/plenary.nvim", ---mostrar combinações de taclas possiveis
+    "folke/which-key.nvim", ---movimentação suave
+    "karb94/neoscroll.nvim",
+    ---reload e restart, plugin orfão
+    --- ; "famiu/nvim-reload"
+    ---lista de variaveis e funções
+    "liuchengxu/vista.vim",
+    -- simrat39/symbols-outline.nvim
+    ---janela com erros
+    "folke/lsp-trouble.nvim",
+    --- icones
+    "kyazdani42/nvim-web-devicons",
+    -----explorador de arquivos
+    "kyazdani42/nvim-tree.lua",
+    --statusline
+    "hoob3rt/lualine.nvim",
+    "neovim/nvim-lspconfig", ---fechar paretes,chaves
+    "windwp/nvim-autopairs", ---flutter
+    "akinsho/flutter-tools.nvim", ---rust
+    "simrat39/rust-tools.nvim", -- ; "TimUntersberger/neogit"
+    "nvim-treesitter/nvim-treesitter", ---melhora no uso do lsp(fonte)
+    "glepnir/lspsaga.nvim", ---tabs superiores
+    "akinsho/nvim-bufferline.lua", ---snippets(formato json)
+    "rafamadriz/friendly-snippets", ---motor de snippets
+    "hrsh7th/vim-vsnip", ---configurar completar    -- ; "hrsh7th/nvim-compe"
+    "hrsh7th/nvim-cmp",
+    "hrsh7th/cmp-path",
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-vsnip", ---mostrar coinscidencias do cursor
+    "xiyaowong/nvim-cursorword", --tela inicial
+    "glepnir/dashboard-nvim",
+})
