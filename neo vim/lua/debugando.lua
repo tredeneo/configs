@@ -1,6 +1,15 @@
-require("dapui").setup({
+local dap, dapui = require("dap"), require("dapui")
+dap.listeners.after.event_initialized["dapui_config"] = function()
+    dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+    dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+    dapui.close()
+end
+dapui.setup({
     sidebar = {
-        open_on_start = true,
         -- You can change the order of elements in the sidebar
         elements = {
             -- Provide as ID strings or tables with "id" and "size" keys
@@ -16,7 +25,6 @@ require("dapui").setup({
         position = "left", -- Can be "left" or "right"
     },
 })
-local dap = require("dap")
 dap.adapters.lldb = {
     type = "executable",
     command = "/usr/bin/lldb-vscode", -- adjust as needed
@@ -59,7 +67,6 @@ dap.configurations.c = {
 
 dap.configurations.python = {
     {
-        -- The first three options are required by nvim-dap
         type = "python", -- the type here established the link to the adapter definition: `dap.adapters.python`
         request = "launch",
         name = "Launch file",

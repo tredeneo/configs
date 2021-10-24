@@ -30,9 +30,6 @@ vim.o.completeopt = "menuone,noselect,noinsert"
 vim.wo.number = true
 vim.wo.relativenumber = true -- same as vim.api.nvim_win_set_option(0, 'number', true)
 
----pesquisa em tempo real
-vim.o.incsearch = true
-
 vim.o.confirm = true
 vim.o.ignorecase = true
 
@@ -49,14 +46,12 @@ vim.o.showtabline = 2
 vim.o.hidden = true
 vim.bo.iskeyword = "@,48-57,192-255"
 -- vim.g.hidden = true
----fechar quando for ultimo
-vim.g.nvim_tree_auto_close = true
----fechar ao abrir arquivo
-vim.g.nvim_tree_quit_on_open = true
+
 ---definir telescope como mecanismo na tela inicial
 vim.g.dashboard_default_executive = "telescope"
 --mostrar valores no codigo durante o debug
-vim.g.dap_virtual_text = true
+vim.opt.shell = "/bin/bash"
+-- vim.g.dap_virtual_text = true
 vim.notify = require("notify")
 -- vim.cmd [[autocmd BufEnter * :TwilightEnable]]
 ---formatador

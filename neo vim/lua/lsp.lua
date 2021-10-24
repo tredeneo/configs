@@ -10,14 +10,15 @@ require("lspconfig").clangd.setup({
     },
 })
 
-require("lspconfig").hls.setup({})
-
 ----- flutter
 require("flutter-tools").setup({
     widget_guides = {
         enable = true,
     },
     lsp = {},
+    debugger = {
+        enable = true,
+    },
 })
 
 -------rust
@@ -28,11 +29,11 @@ require("lspconfig").pylsp.setup({
     enable = true,
     settings = {
         pylsp = {
-            configurationSources = { "flake8" },
+            configurationSources = { "flake8", "mypy" },
             plugins = {
                 flake8 = {
                     enabled = true,
-                    ignore = { "E203", "W503" },
+                    ignore = { "E203", "W503", "E501" },
                     maxLineLength = 88,
                 },
             },
@@ -40,18 +41,22 @@ require("lspconfig").pylsp.setup({
     },
 })
 
+-- nvim-cmp supports additional completion capabilities
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 ---janela de erros
 require("trouble").setup({})
 
 ---melhora no lsp
-require("lspsaga").init_lsp_saga({
-    error_sign = "",
-    warn_sign = "",
-    hint_sign = "",
-    infor_sign = "",
-    code_action_prompt = {
-        enable = false,
-        sign = false,
-        virtual_text = false,
+require("navigator").setup({
+    -- default_mapping = false,
+    treesitter_analysis = false,
+    transparency = 100,
+    icons = {
+        diagnostic_err = "",
+        diagnostic_warn = "",
+        diagnostic_info = "",
+        diagnostic_hint = "",
     },
+    lsp = { format_on_save = false },
 })

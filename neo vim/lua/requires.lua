@@ -1,5 +1,6 @@
 require("telescope").load_extension("flutter")
 require("telescope").load_extension("neoclip")
+require("telescope").load_extension("projects")
 
 require("formatter").setup({
     filetype = {
@@ -42,6 +43,8 @@ require("formatter").setup({
     },
 })
 
+require("marks").setup({})
+
 ---syntax highlight
 require("nvim-treesitter.configs").setup({
     highlight = {
@@ -51,7 +54,17 @@ require("nvim-treesitter.configs").setup({
         enable = true,
     },
 })
-
+require("project_nvim").setup({})
+vim.g.nvim_tree_quit_on_open = 1
+vim.g.nvim_tree_respect_buf_cwd = 1
+require("nvim-tree").setup({
+    update_cwd = true,
+    auto_close = true,
+    update_focused_file = {
+        enable = true,
+        update_cwd = true,
+    },
+})
 ---escurecer
 require("twilight").setup({})
 ---teclas possiveis
@@ -88,6 +101,7 @@ vim.cmd([[highlight IndentBlanklineIndent3 guifg=#0000ff blend=nocombine]])
 vim.cmd([[highlight IndentBlanklineIndent4 guifg=#ffff00 blend=nocombine]])
 vim.cmd([[highlight IndentBlanklineIndent1 guibg=#1f1f1f blend=nocombine]])
 vim.cmd([[highlight IndentBlanklineIndent2 guibg=#1a1a1a blend=nocombine]])
+vim.opt.list = true
 require("indent_blankline").setup({
     -- char_list ={'|', '¦', '┆', '┊'},
     char_highlight_list = { --"visual_char_1", "visual_char_2"},

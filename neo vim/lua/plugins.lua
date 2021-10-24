@@ -15,17 +15,21 @@ require("paq")({
     "lukas-reineke/indent-blankline.nvim", ---tema
     "projekt0n/github-nvim-theme", ---simbolos lsp pro tema
     "folke/lsp-colors.nvim", ---
-    "blacflutterkCauldron7/surround.nvim", -- ; "scalameta/nvim-metals"
+    "blackCauldron7/surround.nvim", -- ; "scalameta/nvim-metals"
     "AckslD/nvim-neoclip.lua",
+    "chentau/marks.nvim", --mostrar marcas
     ---comentarios
     "b3nj5m1n/kommentary",
+    "ahmedkhalf/project.nvim",
     --- finder
     "nvim-telescope/telescope.nvim",
     ---formatador de arquivos
     "rcarriga/nvim-notify", -- notificações
     "mhartington/formatter.nvim",
     ---debug
-
+    "skywind3000/asyncrun.extra",
+    "skywind3000/asyncrun.vim",
+    "voldikss/vim-floaterm",
     "mfussenegger/nvim-dap",
     "theHamsta/nvim-dap-virtual-text", --- mostrar valores no codigo
     "rcarriga/nvim-dap-ui", ---escurecer bloco não atual, n funcionou
@@ -52,7 +56,10 @@ require("paq")({
     "akinsho/flutter-tools.nvim", ---rust
     "simrat39/rust-tools.nvim", -- ; "TimUntersberger/neogit"
     "nvim-treesitter/nvim-treesitter", ---melhora no uso do lsp(fonte)
-    "glepnir/lspsaga.nvim", ---tabs superiores
+    "ray-x/guihua.lua",
+    "ray-x/navigator.lua",
+    -- "glepnir/lspsaga.nvim",
+    ---tabs superiores
     "akinsho/nvim-bufferline.lua", ---snippets(formato json)
     "rafamadriz/friendly-snippets", ---motor de snippets
     "hrsh7th/vim-vsnip", ---configurar completar    -- ; "hrsh7th/nvim-compe"

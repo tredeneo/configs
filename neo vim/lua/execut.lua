@@ -1,33 +1,26 @@
---async compilar
-local function executar(argumentos)
-    require("lspsaga.floaterm").open_float_terminal(argumentos, 3)
-end
-
-function executar_arquivo()
-    local nome_com_caminho = vim.api.nvim_exec([[echo expand('%:p')]], true)
-    local nome = vim.api.nvim_exec([[echo expand('%:r')]], true)
-    local caminho = vim.api.nvim_exec([[echo expand('%:h')]], true)
-    if vim.bo.filetype == "lua" then
-        print("lua")
+function executar_fecha()
+    if vim.bo.filetype == "python" then
+        vim.api.nvim_command([[AsyncRun! -mode=term -pos=floaterm python3 %]])
     elseif vim.bo.filetype == "c" then
-        executar("clang " .. nome_com_caminho .. " -o " .. nome .. " -g && " .. caminho .. "/" .. nome)
-    elseif vim.bo.filetype == "rust" then
-        executar("rustc " .. nome_com_caminho .. " && " .. nome)
+        vim.api.nvim_command([[AsyncRun! -mode=term -pos=floaterm clang -std=c99 % -o %<;./%<]])
+    elseif vim.bo.filetype == "go" then
+        vim.api.nvim_command([[AsyncRun! -mode=term -pos=floaterm go run %]])
+    elseif vim.bo.filetype == rust then
+        vim.api.nvim_command([[AsyncRun! -mode=term -pos=floaterm cargo run --manifest-path <root>/Cargo.toml]])
+    end
+end
+
+function executar_fica()
+    if vim.bo.filetype == "c" then
+        vim.api.nvim_command([[AsyncRun! -mode=term -pos=right make -C %:p:h;make rodar -C %:p:h]])
     elseif vim.bo.filetype == "python" then
-        executar("python3 " .. nome_com_caminho)
+        vim.api.nvim_command([[AsyncRun! -pos=right python3 %]])
     end
 end
 
-function compilar_projeto()
-    local caminho = vim.api.nvim_exec([[echo expand('%:h')]], true)
-    if vim.bo.filetype == "rust" then
-        executar("echo (cd" .. caminho .. ":cargo build)")
+function makefile()
+    if vim.bo.filetype == "c" then
+        vim.api.nvim_command([[AsyncRun! make -C %:p:h;time make rodar -C %:p:h]])
     end
 end
-
-function executar_projeto(car)
-    local caminho = vim.api.nvim_exec([[echo expand('%:h')]], true)
-    if vim.bo.filetype == "rust" then
-        executar("echo (cd " .. caminho .. ";cargo run)")
-    end
-end
+vim.cmd("let g:asyncrun_open = 15")
