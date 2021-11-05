@@ -10,6 +10,7 @@ require("lspconfig").clangd.setup({
     },
 })
 
+require("lspconfig").texlab.setup({})
 ----- flutter
 require("flutter-tools").setup({
     widget_guides = {
@@ -28,15 +29,11 @@ require("rust-tools").setup({})
 require("lspconfig").pylsp.setup({
     enable = true,
     settings = {
-        pylsp = {
-            configurationSources = { "flake8", "mypy" },
-            plugins = {
-                flake8 = {
-                    enabled = true,
-                    ignore = { "E203", "W503", "E501" },
-                    maxLineLength = 88,
-                },
-            },
+        configurationSources = { "flake8" },
+        plugins = {
+            jedi = { enabled = false },
+            rope = { enabled = true, eager = true },
+            capabilities = capabilities,
         },
     },
 })

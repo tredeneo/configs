@@ -189,3 +189,5 @@ require("bufferline").setup({
 
 --icones (nerd fonts)
 require("nvim-web-devicons").setup()
+
+require("stabilize").setup()

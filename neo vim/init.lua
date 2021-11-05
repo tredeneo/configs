@@ -1,11 +1,11 @@
 ---outros arquivos
-
+vim.lsp.set_log_level("debug")
 require("plugins")
 require("map")
-require("requires")
-require("debugando")
 require("lsp")
+require("requires")
 require("execut")
+require("debugando")
 
 --[[
 ---Using meta-accessors
@@ -59,7 +59,7 @@ vim.api.nvim_exec(
     [[
 augroup FormatAutogroup
   autocmd!
-  autocmd BufWritePost *.c,*.py,*.rs,*.lua FormatWrite
+  autocmd BufWritePost *.c,temporario.py,*.rs,*.lua FormatWrite
 augroup END
 ]],
     true

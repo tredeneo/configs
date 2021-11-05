@@ -70,4 +70,5 @@ require("paq")({
     "hrsh7th/cmp-vsnip", ---mostrar coinscidencias do cursor
     "xiyaowong/nvim-cursorword", --tela inicial
     "glepnir/dashboard-nvim",
+    "luukvbaal/stabilize.nvim", --estabilizar/centralizar buffet quando abre um novo
 })
