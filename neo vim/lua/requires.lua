@@ -13,7 +13,7 @@ require("formatter").setup({
             function()
                 return {
                     exe = "rustfmt",
-                    args = { "--edition=2018", "--emit=stdout" },
+                    args = { "--edition=2021", "--emit=stdout" },
                     stdin = true,
                 }
             end,
@@ -43,7 +43,7 @@ require("formatter").setup({
     },
 })
 
-require("marks").setup({})
+-- require("marks").setup({})
 
 ---syntax highlight
 require("nvim-treesitter.configs").setup({
@@ -71,9 +71,7 @@ require("twilight").setup({})
 require("which-key").setup({})
 
 ---movimentação suave
-require("neoscroll").setup({
-    mappings = { "<C-u>", "<C-d>", "<C-y>", "<C-e>", "zt", "zz", "zb" },
-})
+require("neoscroll").setup({})
 
 ---listagem do copiar
 require("neoclip").setup()
@@ -136,10 +134,7 @@ end
 -- vim.o.completeopt = "menuone,noinsert, noselect"
 local cmp = require("cmp")
 cmp.setup({
-    -- completion = {
-    --     completeopt = "menu, noinsert",
-    -- },
-    -- preselect = cmp.PreselectMode.None,
+    preselect = cmp.PreselectMode.None,
     snippet = {
         expand = function(args)
             vim.fn["vsnip#anonymous"](args.body)
@@ -150,14 +145,14 @@ cmp.setup({
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-e>"] = cmp.mapping.close(),
         ["<C-Space>"] = cmp.mapping.complete(),
-        ["<C-j>"] = cmp.mapping.select_next_item(),
-        ["<C-k>"] = cmp.mapping.select_prev_item(),
+        ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+        ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
         ["<CR>"] = cmp.mapping.confirm({ select = false }),
         ["<Tab>"] = cmp.mapping(function(fallback)
             if vim.fn["vsnip#available"]() == 1 then
-                feedkey("<Plug>(vsnip-expand-or-jump)", "")
+                cmp.select_next_item("<Plug>(vsnip-expand-or-jump)", "")
             else
-                fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+                fallback()
             end
         end, {
             "i",
