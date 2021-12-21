@@ -1,0 +1,35 @@
+[[language]]
+name = "rust"
+scope = "source.rust"
+injection-regex = "rust"
+file-types = ["rs"]
+roots = []
+auto-format = true
+comment-token = "//"
+language-server = { command = "rust-analyzer" }
+indent = { tab-width = 4, unit = "    " }
+[language.config]
+cargo = { loadOutDirsFromCheck = true }
+procMacro = { enable = false }
+diagnostics = { disabled = ["unresolved-proc-macro"] }
+inlayHints = {parameterHints=true,typeHints=true}
+
+
+
+[[language]]
+name = "python"
+scope = "source.python"
+injection-regex = "python"
+file-types = ["py"]
+shebangs = ["python"]
+roots = []
+comment-token = "#"
+
+language-server = { command = "pylsp"}
+# config = {plugins={flake8={enabled=false}}}
+[[language.config]]
+plugins={flake8={enabled=false}}
+configurationSources=["flake8"]
+# plugins={rope_completion={eager=true}}
+# TODO: pyls needs utf-8 offsets
+indent = { tab-width = 4, unit = "    " }
