@@ -1,0 +1,18 @@
+# windows: ~/AppData/Roaming/Rime
+# fcitx: ~/.local/share/fcitx5/rime/
+# ibus: ~/.config/ibus/rime/
+patch:
+  schema_list:
+    - schema: quick5
+    - schema: cangjie5_express
+    - schema: luna_pinyin
+
+  ascii_composer:
+    good_old_caps_lock: true
+    switch_key:
+      Shift_L: noop 
+      Shift_R: noop 
+      Control_L: noop
+      Control_R: noop
+      Caps_Lock: clear
+      Eisu_toggle: clear
