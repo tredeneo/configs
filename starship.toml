@@ -1,0 +1,29 @@
+# ~/.config/starship.toml
+# Replace the "❯" symbol in the prompt with "➜"
+add_newline = false
+format = """
+[┌──](bold green)$username$shell$time$git_branch$git_status$cmd_duration
+[├─](bold green)$directory
+[└\\$](bold green)"""
+
+[memory_usage]
+disabled=false
+threshold = 0
+
+[cmd_duration]
+min_time = 500
+show_milliseconds= true
+
+[username]
+show_always=true
+
+[time]
+disabled = false
+time_format= "%H:%M"
+
+[directory]
+truncation_length = 1
+fish_style_pwd_dir_length = 5
+
+[shell]
+disabled = false
