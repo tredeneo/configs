@@ -2,9 +2,9 @@
 # Replace the "❯" symbol in the prompt with "➜"
 add_newline = false
 format = """
-[┌──](bold green)$username$shell$time$git_branch$git_status$cmd_duration
-[├─](bold green)$directory
-[└\\$](bold green)"""
+[┌──](red)[$username$shell$time$git_branch$git_status$cmd_duration](red)
+[├─](bold red)[$directory](red)
+[└](bold red)[\\$](bold yellow)"""
 
 [memory_usage]
 disabled=false
@@ -16,14 +16,19 @@ show_milliseconds= true
 
 [username]
 show_always=true
+# format = "[$user]($style)[ in ](underline red)"
+
 
 [time]
 disabled = false
 time_format= "%H:%M"
 
 [directory]
+style = "bold yellow"
 truncation_length = 1
 fish_style_pwd_dir_length = 5
 
 [shell]
 disabled = false
+# format = "[$indicator]($style) "
+style = "bold yellow"
