@@ -1,11 +1,14 @@
 ---outros arquivos
+vim.opt.termguicolors = true
+vim.notify = require("notify")
+--vim.o.completeopt = "menuone,noinsert, noselect"
 vim.lsp.set_log_level("debug")
 require("impatient")
 require("plugins/packer_config")
 require("map")
 require("requires")
+--require("plugins/cmp_config")
 
-vim.notify = require("notify")
 --[[
 ---Using meta-accessors
 vim.o.{option}: global options
@@ -48,6 +51,7 @@ vim.bo.iskeyword = "@,48-57,192-255"
 ---definir telescope como mecanismo na tela inicial
 vim.g.dashboard_default_executive = "telescope"
 --mostrar valores no codigo durante o debug
-vim.opt.shell = "/bin/bash"
+vim.opt.shell = "/bin/fish"
+vim.cmd([[autocmd BufNewFile,BufRead *.fs,*.fsx,*.fsi set filetype=fsharp]])
 -- vim.g.dap_virtual_text = true
 -- vim.cmd [[autocmd BufEnter * :TwilightEnable]]

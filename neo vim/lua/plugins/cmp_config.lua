@@ -8,14 +8,13 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
-vim.o.completeopt = "menuone,noinsert, noselect"
 local cmp = require("cmp")
 cmp.setup({
-  --[[
+  
     preselect = cmp.PreselectMode.None,
-    --formatting = {
-      --  format = lspkind.cmp_format({ with_text = true, maxwidth = 50 }),
-    --},
+    -- formatting = {
+    --    format = lspkind.cmp_format({ with_text = true, maxwidth = 50 }),
+    -- },
     snippet = {
         expand = function(args)
             vim.fn["vsnip#anonymous"](args.body)
@@ -49,17 +48,17 @@ cmp.setup({
         { name = "path" },
         { name = "nvim_lua" },
     },
-    -- sorting = {
-    --     comparators = {
-    --         cmp.config.compare.offset,
-    --         cmp.config.compare.exact,
-    --         cmp.config.compare.score,
-    --         require("cmp-under-comparator").under,
-    --         cmp.config.compare.kind,
-    --         cmp.config.compare.sort_text,
-    --         cmp.config.compare.length,
-    --         cmp.config.compare.order,
-    --     },
-    -- },
---]]
+    sorting = {
+        comparators = {
+            cmp.config.compare.offset,
+            cmp.config.compare.exact,
+            cmp.config.compare.score,
+            require("cmp-under-comparator").under,
+            cmp.config.compare.kind,
+            cmp.config.compare.sort_text,
+            cmp.config.compare.length,
+            cmp.config.compare.order,
+        },
+    },
+
 })

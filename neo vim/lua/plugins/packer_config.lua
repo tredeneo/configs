@@ -59,7 +59,7 @@ return require("packer").startup({
     use({
       "projekt0n/github-nvim-theme",
       config = function()
-        require("plugins/github-theme_config").setup()
+        require("plugins/github-theme_config")
       end,
     })
     use( --simbolos lsp pro tema
@@ -266,33 +266,33 @@ return require("packer").startup({
       end,
     })
 
-    -- use({ --configurar completar
-    --   "hrsh7th/nvim-cmp",
-    --   requires = {
-    --     {
-    --       "hrsh7th/cmp-nvim-lsp",
-    --       requires = "neovim/nvim-lspconfig",
-    --     },
-    --     "hrsh7th/cmp-path",
-    --     "hrsh7th/cmp-buffer",
-    --     "hrsh7th/cmp-nvim-lua",
-    --     "lukas-reineke/cmp-under-comparator",
-    --     {
-    --       "hrsh7th/cmp-vsnip",
-    --       requires = {
-    --         {
-    --           "hrsh7th/vim-vsnip", -- motor de snippets
-    --           requires = {
-    --             "rafamadriz/friendly-snippets", -- snippets(formato json)
-    --           },
-    --         },
-    --       },
-    --     },
-    --   },
-    --   config = function()
-    --     require("plugins/cmp_config")
-    --   end,
-    -- })
+    use({ --configurar completar
+      "hrsh7th/nvim-cmp",
+      requires = {
+        { "hrsh7th/cmp-nvim-lsp", requires = "neovim/nvim-lspconfig" },
+        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-nvim-lua",
+        "lukas-reineke/cmp-under-comparator",
+        {
+          "hrsh7th/cmp-vsnip",
+          requires = {
+            {
+              "hrsh7th/vim-vsnip", -- motor de snippets
+              requires = {
+                "rafamadriz/friendly-snippets", -- snippets(formato json)
+              },
+            },
+          },
+        },
+      },
+      -- config = function()
+      --   require("plugins/cmp_config")
+      -- end,
+      config = function()
+        require("cmp").setup({})
+      end,
+    })
 
     use({ --mostrar coinscidencias do cursor
       "xiyaowong/nvim-cursorword",

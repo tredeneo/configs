@@ -3,6 +3,7 @@
 -- capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 ---melhora no lsp
+require("lspconfig").fsautocomplete.setup({})
 require("navigator").setup({
   -- default_mapping = false,
   -- treesitter_analysis = false,
@@ -32,7 +33,7 @@ require("navigator").setup({
           filetype = { "python" },
           configurationSources = { "flake8" },
           plugins = {
-            flake8 = { enabled = true, maxLineLength = 20 },
+            flake8 = { enabled = true, maxLineLength = 88 },
             jedi = { enabled = true },
             rope = { enabled = true, eager = true },
             pylint = { enabled = false },

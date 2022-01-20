@@ -10,6 +10,8 @@ function executar_fecha()
     -- vim.api.nvim_command([[AsyncRun! -mode=term -pos=floaterm cargo run --manifest-path <root>/Cargo.toml]])
   elseif vim.bo.filetype == "dart" then
     vim.api.nvim_command([[AsyncRun! -mode=term -pos=floaterm dart run %]])
+  elseif vim.bo.filetype == "fsharp" then
+    vim.api.nvim_command([[AsyncRun! -mode=term -pos=floaterm dotnet run <root>]])
   end
 end
 

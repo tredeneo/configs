@@ -7,3 +7,10 @@ require("kommentary.config").configure_language("default", {
   use_consistent_indentation = true,
   ignore_whitespace = true,
 })
+require("kommentary.config").configure_language("fsharp", {
+  single_line_comment_string = "//",
+  multi_line_comment_string = { "(*", "*)" },
+  prefer_single_line_comments = true,
+  use_consistent_indentation = true,
+  ignore_whitespace = true,
+})
