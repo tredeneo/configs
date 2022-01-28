@@ -51,7 +51,7 @@ vim.bo.iskeyword = "@,48-57,192-255"
 ---definir telescope como mecanismo na tela inicial
 vim.g.dashboard_default_executive = "telescope"
 --mostrar valores no codigo durante o debug
-vim.opt.shell = "/bin/fish"
+vim.opt.shell = "/bin/bash"
 vim.cmd([[autocmd BufNewFile,BufRead *.fs,*.fsx,*.fsi set filetype=fsharp]])
 -- vim.g.dap_virtual_text = true
 -- vim.cmd [[autocmd BufEnter * :TwilightEnable]]

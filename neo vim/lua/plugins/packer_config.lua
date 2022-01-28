@@ -22,6 +22,13 @@ return require("packer").startup({
     use( --parenteses coloridos
       "p00f/nvim-ts-rainbow"
     )
+    use({
+      "anuvyklack/pretty-fold.nvim",
+      config = function()
+        require("pretty-fold").setup({})
+        require("pretty-fold.preview").setup()
+      end,
+    })
     use({ -- simbolos no menu
       "onsails/lspkind-nvim",
     })
@@ -258,19 +265,20 @@ return require("packer").startup({
       end,
     })
 
-    use({
-      "echasnovski/mini.nvim",
-      branch = "stable",
-      config = function()
-        require("plugins/mini_nvim_config")
-      end,
-    })
+    -- use({
+    --   "echasnovski/mini.nvim",
+    --   branch = "stable",
+    --   config = function()
+    --     require("plugins/mini_nvim_config")
+    --   end,
+    -- })
 
     use({ --configurar completar
       "hrsh7th/nvim-cmp",
       requires = {
         { "hrsh7th/cmp-nvim-lsp", requires = "neovim/nvim-lspconfig" },
         "hrsh7th/cmp-path",
+        "lukas-reineke/cmp-rg",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-nvim-lua",
         "lukas-reineke/cmp-under-comparator",
@@ -286,11 +294,8 @@ return require("packer").startup({
           },
         },
       },
-      -- config = function()
-      --   require("plugins/cmp_config")
-      -- end,
       config = function()
-        require("cmp").setup({})
+        require("plugins/cmp_config")
       end,
     })
 
