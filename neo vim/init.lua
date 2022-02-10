@@ -1,13 +1,11 @@
 ---outros arquivos
 vim.opt.termguicolors = true
 vim.notify = require("notify")
---vim.o.completeopt = "menuone,noinsert, noselect"
-vim.lsp.set_log_level("debug")
+-- vim.lsp.set_log_level("debug")
 require("impatient")
 require("plugins/packer_config")
 require("map")
 require("requires")
---require("plugins/cmp_config")
 
 --[[
 ---Using meta-accessors
@@ -33,6 +31,7 @@ vim.wo.relativenumber = true
 
 vim.o.confirm = true
 vim.o.ignorecase = true
+vim.cmd("set clipboard+=unnamedplus")
 
 ---tabs configs
 -- mostra TAB existente com 4 espaços
@@ -52,6 +51,5 @@ vim.bo.iskeyword = "@,48-57,192-255"
 vim.g.dashboard_default_executive = "telescope"
 --mostrar valores no codigo durante o debug
 vim.opt.shell = "/bin/bash"
-vim.cmd([[autocmd BufNewFile,BufRead *.fs,*.fsx,*.fsi set filetype=fsharp]])
 -- vim.g.dap_virtual_text = true
 -- vim.cmd [[autocmd BufEnter * :TwilightEnable]]
