@@ -18,19 +18,34 @@ return require("packer").startup({
     use({ -- Speed up loading Lua modules in Neovim to improve startup time.
       "lewis6991/impatient.nvim",
     })
+
     use("wbthomason/packer.nvim")
+    use({
+      "beauwilliams/focus.nvim",
+      config = function()
+        require("plugins/focus_config")
+      end,
+    })
     use( --parenteses coloridos
       "p00f/nvim-ts-rainbow"
     )
     use({
       "anuvyklack/pretty-fold.nvim",
       config = function()
-        require("pretty-fold").setup({})
-        require("pretty-fold.preview").setup()
+        require("plugins/pretty-fold_config")
       end,
+    })
+    use({ -- fsharp syntax highlight
+      "PhilT/vim-fsharp",
     })
     use({ -- simbolos no menu
       "onsails/lspkind-nvim",
+    })
+    use({
+      "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+      config = function()
+        require("plugins/lsp_lines_config")
+      end,
     })
     use({ -- mover itens selecionados
       "booperlv/nvim-gomove",
@@ -126,7 +141,7 @@ return require("packer").startup({
     })
     use({ --formatador de arquivos
       "mhartington/formatter.nvim",
-      ft = { "rust", "python", "c", "lua" },
+      ft = { "fsharp", "rust", "python", "c", "lua" },
       config = function()
         require("plugins/formatter_config")
       end,
@@ -218,6 +233,9 @@ return require("packer").startup({
         require("plugins/flutter-tools_config")
       end,
     })
+    use({
+      "https://github.com/jubnzv/virtual-types.nvim",
+    })
     use({ --rust
       "simrat39/rust-tools.nvim",
       ft = { "rust" },
@@ -237,26 +255,33 @@ return require("packer").startup({
         require("plugins/nvim-treesitter_config")
       end,
     })
-    -- use({
-    --     -- "shift-d/crates.nvim",
-    --     "mhinz/vim-crates",
-    --     -- "Saecki/crates.nvim",
-    --     event = { "BufRead Cargo.toml" },
-    --     config = vim.cmd([[call crates#toggle()]]),
-    -- })
-    --
+    -- -- use({
+    -- --     -- "shift-d/crates.nvim",
+    -- --     "mhinz/vim-crates",
+    -- --     -- "Saecki/crates.nvim",
+    -- --     event = { "BufRead Cargo.toml" },
+    -- --     config = vim.cmd([[call crates#toggle()]]),
+    -- -- })
 
-    use({ --melhora no uso do lsp(fonte)
-      "ray-x/navigator.lua",
-      requires = {
-        { "neovim/nvim-lspconfig" },
-        { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
-      },
+    -- use({ --melhora no uso do lsp(fonte)
+    -- -- desativei porque não funciona junto de outros plugins que configura LSP
+    --   "ray-x/navigator.lua",
+    --   requires = {
+    --     { "nvim-treesitter/nvim-treesitter" },
+    --     { "neovim/nvim-lspconfig" },
+    --     { "ray-x/guihua.lua", run = "cd lua/fzy && make" },
+    --   },
+    --   config = function()
+    --     require("plugins/navigator_config")
+    --   end,
+    -- })
+    use({
+      "tami5/lspsaga.nvim",
+      branch = "nvim6.0",
       config = function()
-        require("plugins/navigator_config")
+        require("plugins/lspsaga_config")
       end,
     })
-
     use({ --tabs superiores
       "akinsho/nvim-bufferline.lua",
       requires = "kyazdani42/nvim-web-devicons",
@@ -264,14 +289,13 @@ return require("packer").startup({
         require("plugins/bufferline_config")
       end,
     })
-
-    -- use({
-    --   "echasnovski/mini.nvim",
-    --   branch = "stable",
-    --   config = function()
-    --     require("plugins/mini_nvim_config")
-    --   end,
-    -- })
+    use({
+      "neovim/nvim-lspconfig",
+      ft = { "haskell", "fsharp", "python" },
+      config = function()
+        require("plugins/lspconfig_config")
+      end,
+    })
 
     use({ --configurar completar
       "hrsh7th/nvim-cmp",
@@ -313,12 +337,12 @@ return require("packer").startup({
         require("colorizer").setup()
       end,
     })
-    use({ --estabilizar/centralizar buffet quando abre um novo
-      "luukvbaal/stabilize.nvim",
-      config = function()
-        require("stabilize").setup()
-      end,
-    })
+    -- use({ --estabilizar/centralizar buffet quando abre um novo
+    --   "luukvbaal/stabilize.nvim",
+    --   config = function()
+    --     require("stabilize").setup()
+    --   end,
+    -- })
     ---impedir que apagar linha mande elas para o copiar/colar
     -- use({
     --     "gbprod/cutlass.nvim",

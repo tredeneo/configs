@@ -1,7 +1,5 @@
--------LSP-----------------------------------------------------------------
-
---Set completeopt to have a better completion experience
 local opts = { noremap = true, silent = true }
+
 local wk = require("which-key")
 vim.api.nvim_set_keymap("n", "<F9>", [[<cmd>lua require'dap'.toggle_breakpoint()<CR>]], opts)
 vim.api.nvim_set_keymap("n", "<F10>", [[<cmd>lua require'dap'.step_into()<CR>]], opts)
@@ -71,11 +69,6 @@ vim.api.nvim_set_keymap("n", "<ESC>", ":nohlsearch<CR> ", opts)
 vim.api.nvim_set_keymap("v", "<C-c>", '"+y', { silent = true })
 vim.api.nvim_set_keymap("v", "<C-x>", '"+x', { silent = true })
 -- vim.api.nvim_set_keymap("v","<C-v>","\"+gP",{silent=true})
--- ---mover linhas
--- vim.cmd("vnoremap <A-k> :m '<-2<CR>gv=gv")
--- vim.cmd("vnoremap <A-j> :m '>+1<CR>gv=gv")
--- vim.api.nvim_set_keymap("n", "<A-k>", ":m .-2<CR>==", opts)
--- vim.api.nvim_set_keymap("n", "<A-j>", ":m .+1<CR>==", opts)
 
 ---explorador de arquivos
 vim.api.nvim_set_keymap("n", "<C-n>", [[<cmd> lua require'nvim-tree'.toggle()<CR>]], {

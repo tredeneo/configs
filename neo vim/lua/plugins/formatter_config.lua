@@ -2,7 +2,7 @@ vim.api.nvim_exec(
   [[
 augroup FormatAutogroup
   autocmd!
-  autocmd BufWritePost *.c,*.py,*.rs,*.lua FormatWrite
+  autocmd BufWritePost *.fs,*.c,*.py,*.rs,*.lua FormatWrite
 augroup END
 ]],
   true
@@ -37,11 +37,16 @@ require("formatter").setup({
       function()
         return {
           exe = "stylua",
-          args = {
-            "-",
-            "--indent-type Spaces",
-            "--indent-width 2",
-          },
+          args = { "-", "--indent-type Spaces", "--indent-width 2" },
+          stdin = true,
+        }
+      end,
+    },
+    fsharp = {
+      function()
+        return {
+          exe = "fantomas",
+          args = { vim.api.nvim_buf_get_name(0), "--stdout" },
           stdin = true,
         }
       end,

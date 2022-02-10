@@ -1,2 +1,2 @@
 require("rust-tools").setup({})
-require("rust-tools.standalone").start_standalone_client()
+require("rust-tools.inlay_hints").set_inlay_hints()
