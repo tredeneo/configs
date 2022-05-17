@@ -22,7 +22,8 @@ _others_(maybe change)
 ## markdown editor
 [marktext](https://github.com/marktext/marktext)
 
-## developemment editor
+## development editor
+
 [neovim](https://github.com/neovim/neovim)
 
 _others_
