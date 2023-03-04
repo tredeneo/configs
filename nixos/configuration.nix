@@ -2,13 +2,21 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs,lib ,... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
 
+  # Setup keyfile
+  boot.initrd.secrets = { "/crypto_keyfile.bin" = null; };
+
+  # Enable swap on luks
+  boot.initrd.luks.devices."luks-f2c35767-a383-4e3e-8473-34be359147ff".device =
+    "/dev/disk/by-uuid/f2c35767-a383-4e3e-8473-34be359147ff";
+  boot.initrd.luks.devices."luks-f2c35767-a383-4e3e-8473-34be359147ff".keyFile =
+    "/crypto_keyfile.bin";
 
   boot.loader = {
     # Bootloader.
@@ -18,18 +26,22 @@
       efiSysMountPoint = "/boot/efi";
     };
   };
+  boot.plymouth = {
+    enable = true;
+    theme = "breeze";
+    themePackages = with pkgs; [ libsForQt5.breeze-plymouth ];
+  };
 
-	zramSwap = {
-		enable = true;
-		memoryPercent = 200;
-	};
+  zramSwap = {
+    enable = false;
+  };
   networking = {
     firewall = {
       # Open ports in the firewall.
       # allowedTCPPorts = [ ... ];
       # allowedUDPPorts = [ ... ];
       # Or disable the firewall altogether.
-     enable = false;
+      enable = false;
     };
     hostName = "nixos"; # Define your hostname.
     # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -47,19 +59,20 @@
 
   # Select internationalisation properties.
   i18n = {
-  	inputMethod = {
+    inputMethod = {
       enabled = "fcitx5";
       #ibus.engines = with pkgs.ibus-engines; [rime hangul ];
-      fcitx5.addons= with pkgs; [fcitx5-rime  ];
+      fcitx5.addons = with pkgs; [ fcitx5-rime ];
       fcitx5.enableRimeData = true;
     };
-	  defaultLocale = "pt_BR.utf8";
-	};
+    defaultLocale = "pt_BR.utf8";
+  };
 
   xdg = {
 
     portal = {
-      extraPortals = with pkgs; [ xdg-desktop-portal-wlr xdg-desktop-portal-gtk ];
+      wlr.enable = true;
+      extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
       enable = true;
     };
   };
@@ -67,7 +80,7 @@
   # Configure console keymap
   programs = {
     xwayland.enable = true;
-    git.enable = true;
+    sway.enable = false;
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.
     # mtr.enable = true;
@@ -77,20 +90,23 @@
     # };
   };
 
-
-  fonts= lib.mkForce {
-    
+  fonts = {
+    enableDefaultFonts = lib.mkForce false;# true -> error
     fontDir.enable = true;
-      fonts=  with pkgs; [
-
-    (nerdfonts.override {
-      fonts = ["CodeNewRoman" "SpaceMono"];
-    })
-    source-han-mono
-    twitter-color-emoji #Twitter Color Emoji
-    symbola # tudo q é simbola de escritas exotivas
+    #flatpak --user override --filesystem=$HOME/.local/share/fonts
+    # flatpak --user override --filesystem=$HOME/.icons
+    fonts = [
+      (pkgs.nerdfonts.override { fonts = [ "CodeNewRoman" "SpaceMono" ]; })
+      pkgs.source-han-mono
+      pkgs.twitter-color-emoji # Twitter Color Emoji
+      pkgs.symbola # tudo q é simbolo de escritas exotivas
     ];
-    fontconfig.defaultFonts.emoji = ["Twitter Color Emoji" ];
+    fontconfig.defaultFonts = lib.mkForce {
+      emoji = [ "Twitter Color Emoji" ];
+      serif = [ "CodeNewRoman Nerd Font" ];
+      sansSerif = [ "CodeNewRoman Nerd Font" ];
+      monospace = [ "CodeNewRoman Nerd Font" ];
+    };
   };
 
   console.keyMap = "br-abnt2";
@@ -99,49 +115,50 @@
   sound.enable = true;
   hardware = {
     pulseaudio.enable = false;
-    sane = {# scanner
+    sane = { # scanner
       enable = true;
-      extraBackends = [pkgs.sane-airscan ];
+      extraBackends = [ pkgs.sane-airscan ];
 
     };
   };
   security.rtkit.enable = true;
 
   services = {
+    cinnamon.apps.enable = false;
     fwupd.enable = true;
     xserver = {
       enable = true;
       layout = "br";
-      xkbVariant = "";
+      xkbVariant = "abnt2";
       displayManager = {
-        sddm.enable = false;
-        lightdm.enable = false;
-        #startx.enable = true; 
-        autoLogin.user = "dnl";
-        };
+        sddm.enable = true;
+      };
       desktopManager = {
-        plasma5 = {
-          enable = true;
-          };
-        cinnamon.enable=true;
+        plasma5.enable = true;
+        plasma5.excludePackages = [ pkgs.libsForQt5.kwayland pkgs.libsForQt5.kwayland-integration];
+        cinnamon.enable = false;
         lxqt.enable = true;
-        mate.enable = true;
         xfce = {
           enable = true;
-          noDesktop = true;
+          noDesktop = false;
           enableXfwm = false;
         };
       };
-      windowManager.qtile.enable = true;
+      windowManager = {
+        qtile.enable = true;
+        herbstluftwm.enable = false;
+        leftwm.enable = true;
+      };
+
     };
     flatpak.enable = true;
     # Enable CUPS to print documents.
     printing = {
-      
-    enable = true;
-    drivers = [pkgs.gutenprint];
+
+      enable = true;
+      drivers = [ pkgs.gutenprint ];
     };
-    avahi ={
+    avahi = {
       enable = true;
       openFirewall = true;
       nssmdns = true;
@@ -168,50 +185,52 @@
     # openssh.enable = true;
 
     # Enable touchpad support (enabled default in most desktopManager).
-    # xserver.libinput.enable = true;    
+    xserver.libinput.enable = true;
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.tmp = {
+    isNormalUser = true;
+
+    extraGroups = [ "scanner" "lp" "networkmanager"];   
+    };
   users.users.dnl = {
     isNormalUser = true;
     shell = pkgs.fish;
     description = "dnl";
-    extraGroups = ["scanner" "lp" "networkmanager" "wheel" ];
+    extraGroups = [ "scanner" "lp" "networkmanager" "wheel" ];
     packages = with pkgs; [ distrobox ];
   };
   nixpkgs.config.allowUnfree = true;
 
   # $ nix search wget
   environment = {
-    #shells = [pkgs.fish];
-    #variables = {
-    #  EDITOR = "hx";
-    #  VISUAL = "hx";
-    #  SUDO_EDITOR = "hx";
-    #};
-    #defaultPackages = lib.mkForce [ pkgs.helix pkgs.strace];
+    shells = [ pkgs.fish ];
+    variables = {
+      EDITOR = "hx";
+      VISUAL = "hx";
+      SUDO_EDITOR = "hx";
+    };
+    defaultPackages = lib.mkForce [ pkgs.helix ];
     systemPackages = with pkgs; [
-    #brise # rime schemes
-    xfce.xfce4-dockbarx-plugin
-    xfce.xfce4-whiskermenu-plugin
-    kate
-    xclip
-    wl-clipboard
-    steam-run
-    libsForQt5.discover
-    libsForQt5.krohnkite
-    libsForQt5.bismuth
-    libsForQt5.powerdevil
-    libsForQt5.ark
-    unp
-    firefox-wayland
-  ];
+      wlr-randr
+      brise # rime schemes
+      kate
+      xclip
+      wl-clipboard
+      steam-run
+      libsForQt5.discover
+      libsForQt5.bismuth
+      libsForQt5.powerdevil
+      libsForQt5.ark
+      unp
+      firefox-wayland
+    ];
   };
 
   virtualisation = {
     podman = {
       enable = true;
-
       # Create a `docker` alias for podman, to use it as a drop-in replacement
       dockerCompat = true;
 
