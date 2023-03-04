@@ -1,13 +1,14 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-# /etc/nixos/
-{ config, pkgs, ... }:
+
+{ pkgs,lib ,... }:
 
 {
   imports = [ # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
+
 
   boot.loader = {
     # Bootloader.
@@ -18,13 +19,17 @@
     };
   };
 
+	zramSwap = {
+		enable = true;
+		memoryPercent = 200;
+	};
   networking = {
     firewall = {
       # Open ports in the firewall.
       # allowedTCPPorts = [ ... ];
       # allowedUDPPorts = [ ... ];
       # Or disable the firewall altogether.
-      enable = false;
+     enable = false;
     };
     hostName = "nixos"; # Define your hostname.
     # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -41,19 +46,27 @@
   time.timeZone = "America/Sao_Paulo";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "pt_BR.utf8";
+  i18n = {
+  	inputMethod = {
+      enabled = "fcitx5";
+      #ibus.engines = with pkgs.ibus-engines; [rime hangul ];
+      fcitx5.addons= with pkgs; [fcitx5-rime  ];
+      fcitx5.enableRimeData = true;
+    };
+	  defaultLocale = "pt_BR.utf8";
+	};
 
   xdg = {
 
     portal = {
-      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      extraPortals = with pkgs; [ xdg-desktop-portal-wlr xdg-desktop-portal-gtk ];
       enable = true;
     };
   };
 
   # Configure console keymap
   programs = {
-    xwayland.enable = false;
+    xwayland.enable = true;
     git.enable = true;
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.
@@ -63,11 +76,35 @@
     #   enableSSHSupport = true;
     # };
   };
+
+
+  fonts= lib.mkForce {
+    
+    fontDir.enable = true;
+      fonts=  with pkgs; [
+
+    (nerdfonts.override {
+      fonts = ["CodeNewRoman" "SpaceMono"];
+    })
+    source-han-mono
+    twitter-color-emoji #Twitter Color Emoji
+    symbola # tudo q é simbola de escritas exotivas
+    ];
+    fontconfig.defaultFonts.emoji = ["Twitter Color Emoji" ];
+  };
+
   console.keyMap = "br-abnt2";
   # Enable sound with pipewire.
 
   sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  hardware = {
+    pulseaudio.enable = false;
+    sane = {# scanner
+      enable = true;
+      extraBackends = [pkgs.sane-airscan ];
+
+    };
+  };
   security.rtkit.enable = true;
 
   services = {
@@ -76,13 +113,39 @@
       enable = true;
       layout = "br";
       xkbVariant = "";
-      displayManager.sddm.enable = true;
-      desktopManager.plasma5.enable = true;
+      displayManager = {
+        sddm.enable = false;
+        lightdm.enable = false;
+        #startx.enable = true; 
+        autoLogin.user = "dnl";
+        };
+      desktopManager = {
+        plasma5 = {
+          enable = true;
+          };
+        cinnamon.enable=true;
+        lxqt.enable = true;
+        mate.enable = true;
+        xfce = {
+          enable = true;
+          noDesktop = true;
+          enableXfwm = false;
+        };
+      };
       windowManager.qtile.enable = true;
     };
     flatpak.enable = true;
     # Enable CUPS to print documents.
-    printing.enable = true;
+    printing = {
+      
+    enable = true;
+    drivers = [pkgs.gutenprint];
+    };
+    avahi ={
+      enable = true;
+      openFirewall = true;
+      nssmdns = true;
+    };
     pipewire = {
       enable = true;
       alsa.enable = true;
@@ -94,9 +157,11 @@
       #media-session.enable = true;
     };
     clamav = {
-      daemon.enable = true;
-      updater.enable = true;
+      # $ sudo freshclam
+      daemon.enable = false;
+      updater.enable = false;
     };
+    auto-cpufreq.enable = true;
     # List services that you want to enable:
 
     # Enable the OpenSSH daemon.
@@ -109,20 +174,29 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.dnl = {
     isNormalUser = true;
+    shell = pkgs.fish;
     description = "dnl";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [ neovim distrobox ];
+    extraGroups = ["scanner" "lp" "networkmanager" "wheel" ];
+    packages = with pkgs; [ distrobox ];
   };
   nixpkgs.config.allowUnfree = true;
 
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
+  environment = {
+    #shells = [pkgs.fish];
+    #variables = {
+    #  EDITOR = "hx";
+    #  VISUAL = "hx";
+    #  SUDO_EDITOR = "hx";
+    #};
+    #defaultPackages = lib.mkForce [ pkgs.helix pkgs.strace];
+    systemPackages = with pkgs; [
+    #brise # rime schemes
+    xfce.xfce4-dockbarx-plugin
+    xfce.xfce4-whiskermenu-plugin
     kate
-    wget
-    helix
     xclip
     wl-clipboard
-    nixfmt
     steam-run
     libsForQt5.discover
     libsForQt5.krohnkite
@@ -130,7 +204,9 @@
     libsForQt5.powerdevil
     libsForQt5.ark
     unp
+    firefox-wayland
   ];
+  };
 
   virtualisation = {
     podman = {

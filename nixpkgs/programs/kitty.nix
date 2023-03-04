@@ -1,13 +1,13 @@
-{ ... }:
-{
+{ ... }: {
   programs.kitty = {
     enable = true;
-    #font = {
-    #  size = 20;
-    #  name = "noto";
-    #};
-    #    theme = "Dark One Nuanced";
+    font = {
+      size = 14;
+      name = "SpaceMono Nerd Font";
+    };
+    theme = "Dark One Nuanced"; # kitty +kitten themes
     settings = {
+      disable_ligatures = "always";
       cursor = "#ff0000";
       #:cursor como linha
       cursor_shape = "beam";
@@ -21,10 +21,8 @@
       enable_audio_bell = "no";
       #esconder o mouse;
       mouse_hide_wait = "7.0";
-      url_style = "
-        double ";
-      copy_on_select = "
-        yes ";
+      url_style = "\n        double ";
+      copy_on_select = "\n        yes ";
 
       #:layouts habilitados
       enabled_layouts = "Splits, Stack";
@@ -38,8 +36,7 @@
     };
     keybindings = {
       "ctrl+F5" = " launch --location = hsplit ";
-      "
-      ctrl + F6" = "launch --location=vsplit";
+      "\n      ctrl + F6" = "launch --location=vsplit";
       "ctrl+F7" = "layout_action rotate";
 
       "shift+up" = "move_window up";
@@ -60,6 +57,3 @@
     };
   };
 }
-
-
-

@@ -58,7 +58,12 @@
               diagnostics = { disabled = [ "unresolved-proc-macro" ]; };
               inlayHints = { parameterHints = true; typeHints = true; };
             };
-          }];
+          }
+        {
+          name= "lua";
+          auto-format = true;
+        }
+        ];
     };
 
 }

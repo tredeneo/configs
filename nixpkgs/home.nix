@@ -1,10 +1,8 @@
-#~/.config/nixpkgs/home.nix
-{ pkgs, ... }:
+# ~/.config/nixpkgs/home.nix
+{ ... }:
 
 {
-  imports = [
-    ./programs.nix
-  ];
+  imports = [ ./programs.nix ./packages.nix ];
   home = {
     username = "dnl";
     homeDirectory = "/home/dnl";
@@ -14,29 +12,14 @@
     sessionPath = [
       "$HOME/.local/bin/"
       "$HOME/.nix-profile/bin/"
-      "$HOME/.dotnet/tools/"
+      #"$HOME/.dotnet/tools/"
     ];
-    packages = with pkgs ;[
-      rnix-lsp
+    sessionVariables = {
+      GPG_TTY = "$(tty)";
 
-      nodejs
-      nodePackages.npm
-      nodePackages.typescript-language-server
-
-      rustup
-      rust-analyzer
-
-      black
-      dotnet-sdk
-    ];
+    };
   };
-  i18n.inputMethod = {
-    enabled = "fcitx5";
-  };
-  xdg.systemDirs = {
-    data = [ "~/.nix-profile/share/" ];
-  };
+  xdg.systemDirs = { data = [ "~/.nix-profile/share/" ]; };
   targets.genericLinux.enable = true;
-
 
 }
