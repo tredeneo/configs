@@ -12,6 +12,8 @@
   # Setup keyfile
   boot.initrd.secrets = { "/crypto_keyfile.bin" = null; };
 
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+
   # Enable swap on luks
   boot.initrd.luks.devices."luks-f2c35767-a383-4e3e-8473-34be359147ff".device =
     "/dev/disk/by-uuid/f2c35767-a383-4e3e-8473-34be359147ff";
@@ -151,6 +153,15 @@
       };
 
     };
+    xrdp = {
+      enable = true;
+      defaultWindowManager = "startplasma-x11";
+    };
+    openssh = {
+      enable=true;
+      passwordAuthentication = false;
+      kbdInteractiveAuthentication = false;
+    };
     flatpak.enable = true;
     # Enable CUPS to print documents.
     printing = {
@@ -198,7 +209,7 @@
     isNormalUser = true;
     shell = pkgs.fish;
     description = "dnl";
-    extraGroups = [ "scanner" "lp" "networkmanager" "wheel" ];
+    extraGroups = [ "lxd" "scanner" "lp" "networkmanager" "wheel" ];
     packages = with pkgs; [ distrobox ];
   };
   nixpkgs.config.allowUnfree = true;
@@ -213,6 +224,24 @@
     };
     defaultPackages = lib.mkForce [ pkgs.helix ];
     systemPackages = with pkgs; [
+
+      xfce.xfce4-notifyd
+      xfce.xfce4-settings      
+      xfce.xfce4-timer-plugin
+      xfce.xfce4-volumed-pulse
+      xfce.xfce4-power-manager
+      xfce.xfce4-weather-plugin
+      xfce.xfce4-sensors-plugin
+      xfce.xfce4-cpufreq-plugin
+      xfce.xfce4-clipman-plugin
+      xfce.xfce4-battery-plugin
+      xfce.xfce4-datetime-plugin
+      xfce.xfce4-cpugraph-plugin
+      xfce.xfce4-pulseaudio-plugin
+      #xfce.xfce4-hardware-monitor-plugin #broken
+      xfce.xfce4-systemload-plugin
+
+    
       wlr-randr
       brise # rime schemes
       kate
@@ -229,6 +258,18 @@
   };
 
   virtualisation = {
+    oci-containers = {
+      backend = "podman";
+      containers = {
+        container-name = {
+          image = "container-image";
+          autoStart = true;
+          ports = [ "127.0.0.1:1234:1234" ];
+        };
+      };
+    };
+    lxd.enable=true;
+    lxd.recommendedSysctlSettings = true;
     podman = {
       enable = true;
       # Create a `docker` alias for podman, to use it as a drop-in replacement
@@ -236,6 +277,8 @@
 
       # Required for containers under podman-compose to be able to talk to each other.
       defaultNetwork.dnsname.enable = true;
+
+      networkSocket.enable=false;
     };
   };
 
