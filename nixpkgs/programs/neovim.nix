@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   programs.neovim = {
-    enable = true;
+    enable = false;
     extraPackages = with pkgs; [
       zig # install tree-sitter langs
       ripgrep

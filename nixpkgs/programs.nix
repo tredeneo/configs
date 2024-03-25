@@ -18,15 +18,6 @@
       extraConfig = { modi = "drun,window,combi"; };
       theme = "Adapta-Nokto";
     };
-
-    git = {
-      enable = true;
-      extraConfig = {
-        credential.helper = "${
-            pkgs.git.override { withLibsecret = true; }
-          }/bin/git-credential-libsecret";
-      };
-    };
   };
 
 }

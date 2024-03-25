@@ -8,11 +8,15 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+     # <nixpkgs/nixos/modules/virtualisation/qemu-vm.nix> #tpm
     ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  hardware.i2c.enable= true;
+
+
 
   boot.binfmt.registrations.appimage = {
     wrapInterpreterInShell = false;
@@ -23,7 +27,7 @@
     magicOrExtension = ''\x7fELF....AI\x02'';
   };
 
-  # Setup keyfile
+  # # Setup keyfile
   boot.initrd.secrets = {
     "/crypto_keyfile.bin" = null;
   };
@@ -42,14 +46,15 @@
 
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
-  services.system76-scheduler.enable = true;
 
   # Enable swap on luks
-  ##boot.initrd.luks.devices."luks-f2c35767-a383-4e3e-8473-34be359147ff".device =
-  ##  "/dev/disk/by-uuid/f2c35767-a383-4e3e-8473-34be359147ff";
-  ##boot.initrd.luks.devices."luks-f2c35767-a383-4e3e-8473-34be359147ff".keyFile =
-  # # "/crypto_keyfile.bin";
+  # boot.initrd.luks.devices."luks-f2c35767-a383-4e3e-8473-34be359147ff".device =
+  #  "/dev/disk/by-uuid/f2c35767-a383-4e3e-8473-34be359147ff";
+  # boot.initrd.luks.devices."luks-f2c35767-a383-4e3e-8473-34be359147ff".keyFile =
+  #  "/crypto_keyfile.bin";
   hardware = {
+    new-lg4ff.enable = true; #maybe g305 evdev detect
+
     logitech.wireless = {
       enableGraphical= true; # unifying receiver
       enable = true;# unifying receiver
@@ -60,21 +65,7 @@
     };
   };
   boot.supportedFilesystems = ["ntfs"];
-  #boot.loader = {
-    # Bootloader.
-    ##systemd-boot.enable = true;
-   # grub = {
-    #  enable = true;
-     # device = "/dev/sdb";
-      #useOSProber = true;
-#    };
-
-   # #efi = {
-    # # canTouchEfiVariables = true;
-    #  #efiSysMountPoint = "/boot/efi";
-    #};
-#  };
-  # boot.plymouth = {
+    # boot.plymouth = {
     # enable = true;
     # theme = "breeze";
     # themePackages = with pkgs; [ libsForQt5.breeze-plymouth ];
@@ -190,7 +181,9 @@
   };
 
   services = {
-
+    udev.packages = [ pkgs.rwedid ];
+    persistent-evdev.enable =true;
+    system76-scheduler.enable = true;
     mysql = {
     enable = false;
     package= pkgs.mariadb;
@@ -264,6 +257,7 @@
     #xserver.libinput.enable = true;
   };
 
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.tmp = {
     isNormalUser = true;
@@ -277,7 +271,10 @@
     isNormalUser = true;
     # shell = pkgs.fish;
     description = "dnl padrão";
-    extraGroups = [ "scanner" "lp" "networkmanager" "wheel" "libvirtd"];
+    extraGroups = [ 
+    "i2c"
+    "scanner" "lp" "networkmanager" "wheel" "libvirtd"
+    ];
     packages = with pkgs; [ distrobox ];
   };
   nixpkgs.config.allowUnfree = true;
@@ -320,6 +317,8 @@
 
       xwaylandvideobridge #fix discord screen share on wayland
       
+      ddcutil #monitor virt-manager keybind
+
       wlr-randr
       brise # rime schemes
       kate # text editor
@@ -332,7 +331,6 @@
       unp # unpack zip,tar,gz...
       firefox-esr
       solaar # logitech keyboard change FN key
-      # logitech-udev-rules # need for solaar
 
       
 
@@ -348,8 +346,8 @@
 
     ];
   };
-
   virtualisation = {
+    #tpm.enable = true;
     #oci-containers = {
     #  backend = "podman";
     #  containers = {
@@ -367,7 +365,10 @@
 
     };
     #lxd.recommendedSysctlSettings = true;
-    libvirtd.enable = true;
+    libvirtd = {
+      enable = true;
+      qemu.swtpm.enable= true;
+      };
     podman = {
       enable = true;
       # Create a `docker` alias for podman, to use it as a drop-in replacement

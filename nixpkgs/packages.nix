@@ -4,8 +4,9 @@
     #/* rnix-lsp */
     nixfmt
 
-    rustup
-    rust-analyzer
+    slint-lsp
+    # rustup
+    # rust-analyzer
     cargo-whatfeatures
 
     vlc
@@ -15,15 +16,15 @@
     #mpv
     gitui
 
-    ksystemlog
+    # ksystemlog
     lshw
     dmidecode
 
     valgrind # --tool=mem check ./a.out
 
-    pipx
+    # pipx
     calibre
-
+    sqlitebrowser
     lxappearance
 
     #"+si:localuser:$USER"
