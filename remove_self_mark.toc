@@ -1,0 +1,8 @@
+## Interface: 100205
+## Name: remove_self_mark
+## Title: remove_self_mark
+## Notes: Nothing to be done.
+## Version: 1.0.0
+
+# This line is a comment
+Main.lua
